@@ -1,3 +1,4 @@
+```markdown
 ---
 
 ## EduStack
@@ -58,7 +59,7 @@ EduStack es una plataforma educativa interactiva diseñada para facilitar el int
   ```
 
 ### Contribuir al Proyecto:
- 
+
 1. Clona este repositorio en tu máquina local:
 
    ```bash
@@ -87,8 +88,7 @@ EduStack es una plataforma educativa interactiva diseñada para facilitar el int
 
 ### Contacto:
 
-Para cualquier pregunta o sugerencia, no dudes en contactarnos directamente a través de GitHub. 
- 
+Para cualquier pregunta o sugerencia, no dudes en contactarnos directamente a través de GitHub.
 
---- 
- 
+---
+```
