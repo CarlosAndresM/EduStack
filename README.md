@@ -1,6 +1,4 @@
-```markdown
----
-
+ 
 ## EduStack
 
 EduStack es una plataforma educativa interactiva diseñada para facilitar el intercambio de conocimientos y la resolución de dudas entre estudiantes y educadores. Inspirada en el modelo comunitario de Stack Overflow, EduStack permite a los usuarios:
@@ -89,6 +87,5 @@ EduStack es una plataforma educativa interactiva diseñada para facilitar el int
 ### Contacto:
 
 Para cualquier pregunta o sugerencia, no dudes en contactarnos directamente a través de GitHub.
-
----
+ 
 ```
