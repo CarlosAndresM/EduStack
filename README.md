@@ -19,19 +19,22 @@ EduStack es una plataforma educativa interactiva diseñada para facilitar el int
 ### Estructura del Repositorio:
 
 ```
+
 ├── README.md
-├── index.html
-├── assets/
-│   ├── css/
-│   │   ├── main.css
-│   │   └── (archivos generados por Sass)
-│   ├── js/
-│   │   └── script.js
-│   └── img/
-│       └── (imágenes y recursos gráficos)
-└── database/
-    ├── schema.sql
-    └── (archivos de configuración de la base de datos)
+├── package.json
+├── package-lock.json
+├── public
+│   ├── assets
+│   │   ├── css
+│   │   ├── img
+│   │   └── js
+│   ├── database
+│   ├── index.html
+│   └── registro.html
+├── server.js
+└── tailwind.config.js
+
+
 ```
 
 ### Estándares y Buenas Prácticas
