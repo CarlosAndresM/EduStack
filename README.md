@@ -38,7 +38,7 @@ EduStack es una plataforma educativa interactiva diseñada para facilitar el int
 
 #### Convenciones de Codificación:
 
-- Utilizamos CamelCase para nombrar variables y funciones, PascalCase para nombres de clases y SNAKE_CASE para constantes.
+- Utilizamos CamelCase para nombrar variables y funciones, PascalCase para nombres de clases.
 
 #### Organización del Código:
 
