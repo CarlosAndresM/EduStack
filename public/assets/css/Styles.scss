@@ -1,0 +1,16 @@
+$bgWidth: 10000px;
+body {
+  background: linear-gradient(to right , #b7b7b7,#eee 19%,#ddd 40%,#b7b7b7 60%,#eee 83%,#b7b7b7 100%); 
+  background-size: $bgWidth 100%;
+  animation: bg 15s linear infinite ;
+}
+
+@keyframes bg{
+  0%{
+    background-position-x: 0;
+  }
+  
+  100%{
+    background-position-x: $bgWidth;
+  }
+}
