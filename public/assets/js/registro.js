@@ -57,6 +57,7 @@ document.addEventListener('DOMContentLoaded', (e) => {
 
 document.addEventListener('DOMContentLoaded', (e) => {
     const registroForm = document.getElementById('registroUsuariosForm');
+    const formularioRegistro = document.getElementById('formularioRegistro');
 
     registroForm.addEventListener('click', function(event) {
         event.preventDefault(); // Evitar el envío automático del formulario
@@ -85,12 +86,12 @@ document.addEventListener('DOMContentLoaded', (e) => {
 
         // Validación básica del email y password
         if (!email || !password || !repeatPassword || !firstName || !lastName || !phone || !company || !agreedTerms) {
-            alert('Por favor completa todos los campos y acepta los términos y condiciones.');
+            showNotification('Por favor completa todos los campos y acepta los términos y condiciones.');
             return;
         }
 
         if (password !== repeatPassword) {
-            alert('Las contraseñas no coinciden.');
+            showNotification('Las contraseñas no coinciden.');
             return;
         }
 
@@ -122,12 +123,40 @@ document.addEventListener('DOMContentLoaded', (e) => {
         })
         .then(data => {
             console.log('Registro exitoso:', data);
-            alert('Registro exitoso');
+            showNotification('Registro exitoso');
+            formularioRegistro.reset();
+            
             // Aquí podrías redirigir a otra página o realizar otra acción después del registro exitoso
         })
         .catch(error => {
             console.error('Error en el registro:', error);
-            alert('Error en el registro. Por favor intenta nuevamente.');
+            showNotification('Error en el registro. Por favor intenta nuevamente.');
         });
     });
 });
+
+  // Función para mostrar la notificación con mensaje específico
+  function showNotification(message) {
+    var notification = document.getElementById('notification');
+    var notificationMessage = document.getElementById('notificationMessage');
+
+    // Mostrar el mensaje en la notificación
+    notificationMessage.textContent = message;
+
+    // Añadir la clase 'show' para mostrar la notificación con animación
+    notification.classList.add('show');
+
+    // Ocultar la notificación después de 3 segundos (3000 milisegundos)
+    setTimeout(function() {
+        hideNotification();
+    }, 3000);
+}
+
+// Función para ocultar la notificación
+function hideNotification() {
+    var notification = document.getElementById('notification');
+
+    // Remover la clase 'show' para ocultar la notificación con animación
+    notification.classList.remove('show');
+}
+ 

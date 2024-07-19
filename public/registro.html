@@ -9,8 +9,51 @@
     <link rel="stylesheet" type="text/css" href="assets/css/index.css">
     <script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
 </head>
- 
+
+<style>
+    .notification {
+            position: fixed;
+            z-index: 1;
+            right: 10px;
+            top: 10px;
+            width: 300px;
+            background-color: #f8f9fa;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+            border-left: 6px solid #007bff;
+            overflow: hidden;
+            opacity: 0;
+            transition: opacity 0.3s ease-in-out;
+        }
+        .notification.show {
+            opacity: 1;
+        }
+        .notification-content {
+            padding: 10px;
+        }
+        .notification-close {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            cursor: pointer;
+            color: #007bff;
+            font-size: 18px;
+            font-weight: bold;
+        }
+</style>
+
 <body >
+
+    
+
+
+<!-- Contenedor de la notificación -->
+<div id="notification" class="notification">
+    <div class="notification-content">
+        <span id="notificationMessage"></span>
+        <span class="notification-close" onclick="hideNotification()">&times;</span>
+    </div>
+</div>
+    
     <header class="text-center m-20 p-5 text-9xl font-extrabold text-gray-900 dark:text-white "><span class="bg-clip-text text-transparent bg-gradient-to-r from-gray-300 to-gray-300">
         EDUSTACK
       </span></header>    
@@ -21,7 +64,7 @@
                 <center>
                     <h2 class="mt-2 mb-2 text-lg font-semibold text-gray-900 dark:text-gray-900">Sign up</h2>
                 </center>
-                <form class="max-w-md mx-auto p-5">
+                <form id="formularioRegistro" class="max-w-md mx-auto p-5">
                     <div class="relative z-0 w-full mb-5 group">
                         <input type="email" name="floating_email" id="floating_email"
                             class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-gray-900 dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
