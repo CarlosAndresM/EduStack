@@ -8,9 +8,26 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" type="text/css" href="assets/css/index.css">
     <script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
+    
 </head>
 
 <style>
+    .text-yellow-500 {
+    color: #f59e0b; /* Color amarillo */
+}
+
+.text-xs {
+    font-size: 0.75rem; /* Tamaño de fuente pequeño */
+}
+
+.mt-2 {
+    margin-top: 0.5rem; /* Espacio superior */
+}
+
+.hidden {
+    display: none; /* Ocultar el elemento por defecto */
+}
+
     .notification {
             position: fixed;
             z-index: 1;
@@ -39,6 +56,26 @@
             font-size: 18px;
             font-weight: bold;
         }
+
+  
+
+/* Estilos generales para el modal */
+#codigoVerificacionModal {
+    display: none;  
+}
+ 
+
+/* Estilos para el fondo oscuro detrás del modal */
+.bg-opacity-50 {
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+/* Temporizador de cuenta regresiva */
+#verificationTimer {
+    color: red;
+    font-weight: bold;
+}
+
 </style>
 
 <body >
@@ -170,6 +207,34 @@
             </div>
         </div>
     </section>
+<!-- Modal para el código de verificación -->
+<div id="codigoVerificacionModal" class="fixed inset-0 flex items-center justify-center hidden bg-black bg-opacity-50">
+    <div class="bg-white rounded-lg overflow-hidden shadow-xl w-full max-w-md p-4">
+        <div class="modal-header flex justify-between items-center border-b p-4">
+            <h5 class="modal-title text-lg font-bold">Ingrese el Código de Verificación</h5>
+            <button type="button" id="closeModal" class="text-gray-600 hover:text-gray-800 focus:outline-none">
+                <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                </svg>
+            </button>
+        </div>
+       
+        <div class="modal-body p-4">
+            <input type="text" id="confirm_email_modal" class="w-full px-3 py-2 border rounded-md focus:outline-none focus:border-blue-500" placeholder="Confirmar correo electrónico">
+        
+            <input type="text" id="verification_code_modal" class="w-full px-3 py-2 border rounded-md focus:outline-none focus:border-blue-500" placeholder="Código de Verificación">
+              
+            <small id="verificationTimer" class="text-xs block mt-2">Tiempo restante: <span id="timer">10:00</span></small>
+        
+            <p id="warningMessage" class="text-yellow-500 text-xs mt-2 hidden"></p>
+        </div>
+        
+        
+        <div class="modal-footer flex justify-end p-4">
+            <button type="button" id="submitVerificationCode" class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 focus:outline-none">Confirmar</button>
+        </div>
+    </div>
+</div>
 
 
     <script src="assets/js/registro.js"></script>
