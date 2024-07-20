@@ -31,7 +31,7 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 
   document.addEventListener('DOMContentLoaded', function() {
-    // Selecciona todos los spans con un ID
+   
     const spans = document.querySelectorAll('span');
 
     function checkWindowSize() {
@@ -42,10 +42,9 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     }
 
-    // Check window size on load
+    
     checkWindowSize();
 
-    // Check window size on resize
     window.addEventListener('resize', checkWindowSize);
 });
 
