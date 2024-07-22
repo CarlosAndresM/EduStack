@@ -156,6 +156,10 @@ document.getElementById('registroUsuariosForm').addEventListener('click', async 
 
 // Verificar código de verificación
 document.getElementById('submitVerificationCode').addEventListener('click', async (e) => {
+    
+    // Actualizar el mensaje de advertencia
+    const mensajeAdvertencia = document.getElementById('warningMessage');
+    mensajeAdvertencia.textContent = ''
     e.preventDefault(); // Prevenir el envío por defecto del formulario
     
     // Obtener los valores de los campos de entrada
