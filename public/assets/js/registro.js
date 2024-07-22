@@ -1,32 +1,26 @@
 //  Script para mostrar/ocultar contraseña --> {
 
-    const togglePassword = document.getElementById('togglePassword');
-    const password = document.getElementById('floating_password');
+        // Toggle mostrar/ocultar contraseña
+        document.getElementById('togglePassword').addEventListener('click', function () {
+            const passwordInput = document.getElementById('floating_password');
+            const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+            passwordInput.setAttribute('type', type);
+            this.setAttribute('name', type === 'password' ? 'hide' : 'show');
+        });
 
-    togglePassword.addEventListener('click', function () {
-        const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
-        password.setAttribute('type', type);
-        this.classList.toggle('bx-hide');
-        this.classList.toggle('bx-show');
-    });
-
-    // Para la confirmación de contraseña
-    const toggleRepeatPassword = document.getElementById('toggleRepeatPassword');
-    const repeatPassword = document.getElementById('floating_repeat_password');
-
-    toggleRepeatPassword.addEventListener('click', function () {
-        const type = repeatPassword.getAttribute('type') === 'password' ? 'text' : 'password';
-        repeatPassword.setAttribute('type', type);
-        this.classList.toggle('bx-hide');
-        this.classList.toggle('bx-show');
-    }); 
-
+        // Toggle mostrar/ocultar contraseña repetida
+        document.getElementById('toggleRepeatPassword').addEventListener('click', function () {
+            const repeatPasswordInput = document.getElementById('floating_repeat_password');
+            const type = repeatPasswordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+            repeatPasswordInput.setAttribute('type', type);
+            this.setAttribute('name', type === 'password' ? 'hide' : 'show');
+        });
 //  Script para mostrar/ocultar contraseña --> }
 
 
+
+
 // Codigo para renderizar la lista de las categorias escolares = >>{
-
-
 
 document.addEventListener('DOMContentLoaded', (e) => {
     const selectDeCategorias = document.getElementById('countries');
@@ -55,200 +49,175 @@ document.addEventListener('DOMContentLoaded', (e) => {
 
 // CODIGO PARA EL REGISTRO DEL USUARIO
 
-document.addEventListener('DOMContentLoaded', () => {
-    const registroForm = document.getElementById('registroUsuariosForm');
-    const formularioRegistro = document.getElementById('formularioRegistro');
-    const codigoVerificacionModal = document.getElementById('codigoVerificacionModal');
-    const closeBtn = document.getElementById('closeModal');
-    const submitBtn = document.getElementById('submitVerificationCode');
-    const verificationCodeInput = document.getElementById('verification_code_modal');
-    const timerElement = document.getElementById('timer');
-    const warningMessage = document.getElementById('warningMessage'); // Elemento para mostrar mensajes de advertencia
+function showNotification(message) {
+    const notification = document.getElementById('notification');
+    const notificationMessage = document.getElementById('notificationMessage');
+    notificationMessage.textContent = message;
+    notification.classList.add('show');
+    setTimeout(() => {
+        hideNotification();
+    }, 6000);
+}
 
-    let verificationCodeTimer; // Variable para almacenar el temporizador del código de verificación
-    let verificationCodeExpiresAt; // Variable para almacenar el tiempo de expiración del código
+function hideNotification() {
+    const notification = document.getElementById('notification');
+    notification.classList.remove('show');
+}
 
-    registroForm.addEventListener('click', (event) => {
-        event.preventDefault(); // Evitar el envío automático del formulario
 
-        const email = document.getElementById('floating_email').value;
-        const password = document.getElementById('floating_password').value;
-        const repeatPassword = document.getElementById('floating_repeat_password').value;
-        const firstName = document.getElementById('floating_first_name').value;
-        const lastName = document.getElementById('floating_last_name').value;
-        const phone = document.getElementById('floating_phone').value;
-        const userName = document.getElementById('floating_company').value;
-        const agreedTerms = document.getElementById('checkbox-1').checked;
-        const promotionalOffers = document.getElementById('checkbox-2').checked;
-        const educational_level_id = document.getElementById('countries').value;
-
-        if (!email || !password || !repeatPassword || !firstName || !lastName || !phone || !userName || !agreedTerms || !promotionalOffers || !educational_level_id) {
-            showNotification('Por favor completa todos los campos y acepta los términos y condiciones.');
-            return;
-        }
-
-        if (password !== repeatPassword) {
-            showNotification('Las contraseñas no coinciden.');
-            return;
-        }
-
-        const userData = {
-            email: email,
-            password: password,
-            first_name: firstName,
-            last_name: lastName,
-            phone: phone,
-            userName: userName,
-            agreed_terms: agreedTerms,
-            promotional_offers: promotionalOffers,
-            educational_level_id: educational_level_id
-        };
-
-        fetch('/registro', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(userData)
-        })
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Error al registrar usuario.');
-            }
-            return response.json();
-        })
-        .then(data => {
-            console.log('Respuesta del servidor:', data);
-            formularioRegistro.reset();
-        
-            if (data.userExisten) {
-                showNotification(data.mensaje);
-            } else {
-                codigoVerificacionModal.style.display = 'flex';
-                startVerificationCodeTimer(data.expiresAt);
-
-                if (data.mensaje) {
-                    showNotification(data.mensaje);
-                }
-            }
-        })
-        .catch(err => {
-            console.error('Error al procesar la solicitud:', err);
-            showNotification('Error interno al procesar la solicitud.');
-        });
-    });
-
-    closeBtn.addEventListener('click', () => {
-        codigoVerificacionModal.style.display = 'none';
-        clearInterval(verificationCodeTimer);
-    });
-
-    submitBtn.addEventListener('click', () => {
-        const verificationCode = verificationCodeInput.value.trim();
-        const emailConfirmado = document.getElementById('confirm_email_modal').value.trim();
+// Registrar usuario
+document.getElementById('registroUsuariosForm').addEventListener('click', async (event) => {
+    event.preventDefault(); // Prevenir el envío por defecto del formulario
     
-        fetch('/confirmar-cuenta', {
+
+    console.log('registrando usuario')
+    const email = document.getElementById('floating_email').value;
+    const password = document.getElementById('floating_password').value; 
+    const password_repeat = document.getElementById('floating_repeat_password').value
+    const first_name = document.getElementById('floating_first_name').value;
+    const last_name = document.getElementById('floating_last_name').value;
+    const phone = document.getElementById('floating_phone').value;
+    const userName = document.getElementById('floating_company').value;
+    const educational_level_id = document.getElementById('countries').value;
+    const agreed_terms = document.getElementById('checkbox-1').checked ? 1 : 0;
+    const promotional_offers = document.getElementById('checkbox-2').checked ? 1 : 0;
+
+
+    // Validar que todos los campos obligatorios estén llenos
+    if (!email || !password || !password_repeat || !first_name || !last_name || !phone || !userName || !educational_level_id || !agreed_terms) {
+        showNotification('Por favor, complete todos los campos obligatorios.');
+        return;
+    }
+
+    if(password !== password_repeat){
+        showNotification('Las contraseñas no coinciden.');
+        document.getElementById('loader').classList.add('hidden');
+        return;
+    }
+
+
+    
+    document.getElementById('loader').classList.remove('hidden');
+
+    try {
+        const response = await fetch('/registro', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                email: emailConfirmado,
-                verificationCode: verificationCode
+                email,
+                password,
+                first_name,
+                last_name,
+                phone,
+                userName,
+                educational_level_id,
+                agreed_terms,
+                promotional_offers
             })
-        })
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Error al confirmar cuenta.');
-            }
-            return response.json();
-
-        })
-        .then(data => {
-            console.log(data)
-            if (data.message) {
-                warningMessage.textContent = ''
-                warningMessage.classList.remove('hidden');
-                warningMessage.textContent = data.message;
-            } 
-                console.log('Cuenta confirmada:', data.message);
-                codigoVerificacionModal.style.display = 'none';
-                clearInterval(verificationCodeTimer);
-            
-        })
-        .catch(error => {
-            console.error('Error al confirmar cuenta:', error);
-            showNotification('Error al confirmar cuenta. Por favor intenta nuevamente.');
         });
-    });
 
+        const data = await response.json();
+
+        if (!response.ok) {
+            throw new Error(data.message); // Capturar el mensaje de error del servidor
+        }
+
+        if (data.showModal) {
+            // Mostrar modal de verificación
+            document.getElementById('codigoVerificacionModal').style.display = 'flex';
+        }
+    } catch (error) {
+        console.error('Error al registrar usuario:', error);
+        // Mostrar mensaje de error usando la función showNotification
+        showNotification(error.message);
+    }finally {
+    // Ocultar el spinner de carga al finalizar, tanto si hay éxito como si hay error
+    document.getElementById('loader').classList.add('hidden');
+}
+});
+
+
+
+
+// Verificar código de verificación
+document.getElementById('submitVerificationCode').addEventListener('click', async (e) => {
+    e.preventDefault(); // Prevenir el envío por defecto del formulario
     
-    function showNotification(message) {
-        const notification = document.getElementById('notification');
-        const notificationMessage = document.getElementById('notificationMessage');
-        notificationMessage.textContent = message;
-        notification.classList.add('show');
-        setTimeout(() => {
-            hideNotification();
-        }, 6000);
-    }
-    
-    function hideNotification() {
-        const notification = document.getElementById('notification');
-        notification.classList.remove('show');
+    // Obtener los valores de los campos de entrada
+    let verificationCode = document.getElementById('verification_code_modal').value;
+    let verificacionEmail = document.getElementById('confirm_email_modal').value;
+
+    // Validar que todos los campos obligatorios estén llenos
+    if (!verificationCode || !verificacionEmail) {
+        showNotification('Por favor, complete todos los campos obligatorios.');
+        return;
     }
 
-    function startVerificationCodeTimer(expiresAt) {
-        verificationCodeExpiresAt = new Date(expiresAt).getTime(); // Asegurarse de que expiresAt sea una fecha válida (puede ser un timestamp en milisegundos)
-        updateTimer();
+    try {
+        const response = await fetch('/verificar-codigo', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                verificationCode,
+                verificacionEmail
+            })
+        });
 
-        verificationCodeTimer = setInterval(() => {
-            updateTimer();
-        }, 1000);
-    }
+        const data = await response.json();
 
-    function updateTimer() {
-        const now = new Date().getTime();
-        const distance = verificationCodeExpiresAt - now;
-        
-        if (distance < 0) {
-            clearInterval(verificationCodeTimer);
-            timerElement.textContent = 'Tiempo expirado';
-            requestNewVerificationCode();
+        if (!response.ok) {
+            throw new Error(data.message); // Capturar el mensaje de error del servidor
+        }
+
+        // Manejar diferentes casos de respuesta del servidor
+        if (data.type === 'correoErroneo') {
+            // Mostrar mensaje de error específico para correo erróneo
+            showNotification(data.message);
+            // Mostrar el modal de verificación nuevamente si es necesario
+            document.getElementById('codigoVerificacionModal').style.display = 'flex';
+
+            // Actualizar el mensaje de advertencia
+            const mensajeAdvertencia = document.getElementById('warningMessage');
+            mensajeAdvertencia.textContent = ''
+            mensajeAdvertencia.textContent = data.message;
+        } else if (data.type === 'expiracionDeCodigo') {
+            // Mostrar mensaje de advertencia por código expirado
+            showNotification(data.message);
+            // Actualizar el mensaje de advertencia
+            const mensajeAdvertencia = document.getElementById('warningMessage');
+            mensajeAdvertencia.textContent = '' 
+            mensajeAdvertencia.textContent = data.message
         } else {
-            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-            let seconds = Math.floor((distance % (1000 * 60)) / 1000);
+            // Mostrar mensaje de éxito o continuar con el flujo normal
+            showNotification('Registro completado correctamente.');
+            // Ocultar el modal de verificación si está visible
+            document.getElementById('codigoVerificacionModal').style.display = 'none';
 
-            seconds = seconds < 10 ? `0${seconds}` : seconds;
-
-            timerElement.textContent = `${minutes}:${seconds}`;
+            // Limpiar los campos y restablecer el formulario
+            document.getElementById('verification_code_modal').value = '';
+            document.getElementById('confirm_email_modal').value = '';
+            const form = document.getElementById('formularioRegistro');
+            form.reset();
         }
-    }
 
-    function requestNewVerificationCode() {
-        fetch('/solicitar-nuevo-codigo', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                email: document.getElementById('confirm_email_modal').value.trim()
-            })
-        })
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Error al solicitar nuevo código.');
-            }
-            return response.json();
-        })
-        .then(data => {
-            console.log('Nuevo código generado:', data);
-            startVerificationCodeTimer(data.expiresAt);
-        })
-        .catch(error => {
-            console.error('Error al solicitar nuevo código:', error);
-            showNotification('Error al solicitar nuevo código. Por favor intenta nuevamente.');
-        });
+    } catch (error) {
+        console.error('Error al verificar código de verificación:', error);
+        // Mostrar mensaje de error usando la función showNotification
+        showNotification(error.message);
     }
 });
 
+
+        // Cerrar modal de verificación
+        document.getElementById('closeModal').addEventListener('click', () => { 
+        document.getElementById('codigoVerificacionModal').style.display = 'none';    
+        let verificationCode = document.getElementById('verification_code_modal').value;
+        let verificacionEmail = document.getElementById('confirm_email_modal').value; 
+        verificacionEmail = '';
+        verificationCode  = ''
+
+        });

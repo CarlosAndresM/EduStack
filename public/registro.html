@@ -220,19 +220,27 @@
         </div>
        
         <div class="modal-body p-4">
-            <input type="text" id="confirm_email_modal" class="w-full px-3 py-2 border rounded-md focus:outline-none focus:border-blue-500" placeholder="Confirmar correo electrónico">
+            <input type="text" id="confirm_email_modal" class="mb-4 w-full px-3 py-2 border rounded-md focus:outline-none focus:border-blue-500" placeholder="Confirmar correo electrónico">
         
-            <input type="text" id="verification_code_modal" class="w-full px-3 py-2 border rounded-md focus:outline-none focus:border-blue-500" placeholder="Código de Verificación">
-              
-            <small id="verificationTimer" class="text-xs block mt-2">Tiempo restante: <span id="timer">10:00</span></small>
-        
-            <p id="warningMessage" class="text-yellow-500 text-xs mt-2 hidden"></p>
+            <input type="text" id="verification_code_modal" class="mb-4 w-full px-3 py-2 border rounded-md focus:outline-none focus:border-blue-500" placeholder="Código de Verificación">
+               
+            <p id="warningMessage" class="text-yellow-500 text-lg mt-4"></p>
         </div>
         
         
         <div class="modal-footer flex justify-end p-4">
             <button type="button" id="submitVerificationCode" class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 focus:outline-none">Confirmar</button>
         </div>
+    </div>
+</div>
+
+<div id="loader" class="fixed top-0 left-0 w-full h-full bg-gray-900 bg-opacity-50 flex justify-center items-center z-50 hidden">
+    <div class="flex items-center text-white">
+        <svg class="animate-spin -ml-1 mr-3 h-8 w-8 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A8.001 8.001 0 0112 4.472v3.63L6.472 17.291z"></path>
+        </svg>
+        <span>Cargando...</span>
     </div>
 </div>
 
