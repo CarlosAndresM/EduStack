@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Correo de Verificación</title>
+    <style>
+        @keyframes snow {
+            0% {
+                opacity: 0;
+                transform: translateY(0px);
+            }
+
+            20% {
+                opacity: 1;
+            }
+
+            100% {
+                opacity: 1;
+                transform: translateY(650px);
+            }
+        }
+
+        @keyframes astronaut {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        .explora-conocimiento {
+            box-sizing: border-box;
+            display: flex; 
+            border-radius: 5px;
+            font-size: 12px;
+            color: #ffffff;
+            right: 0;
+            bottom: 0;
+            position: absolute;
+            width: 200px;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            background-color: #333333;
+        }
+
+        .explora-conocimiento p {
+            color: #f4f4f4;
+        }
+
+        body {
+            margin: 20px;
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto; 
+            background-color: #f4f4f4;
+
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .logo {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .logo img {
+            max-width: 150px;
+        }
+
+        .message {
+            position: relative;
+            padding: 20px;
+            border-radius: 5px;
+        }
+
+        h3 {
+            color: #333333;
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+
+        p {
+            color: #666666;
+            font-size: 16px;
+            line-height: 1.6;
+        }
+
+        .firma {
+            font-family: cursive;
+            font-size: 22px;
+            color: #333333;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="logo">
+            <h1 class="firma">EduStack</h1>
+            
+        </div>
+        <div class="message">
+            <p>Hola ${first_name} ${last_name},</p>
+            <p>Gracias por registrarte. Para completar tu registro, por favor ingresa el siguiente código de verificación:</p>
+            <h3>${newVerificationCode}</h3>
+            <p>Este código es válido por 5 minutos.</p>
+            <p>Atentamente,</p>
+            <p class="firma">EduStack</p>
+        </div>
+    </div>
+</body>
+</html>
