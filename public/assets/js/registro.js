@@ -82,6 +82,19 @@ document.getElementById('registroUsuariosForm').addEventListener('click', async 
     const agreed_terms = document.getElementById('checkbox-1').checked ? 1 : 0;
     const promotional_offers = document.getElementById('checkbox-2').checked ? 1 : 0;
 
+    // Obtener el dominio del correo electrónico
+    const domain = email.substring(email.lastIndexOf('@'));
+
+    // Verificar si el dominio está en la lista permitida
+    if (domain === '@gmail.com' || domain === '@hotmail.com' || domain === '@yahoo.com') {
+        // Continuar con el flujo normal, por ejemplo, enviar el formulario
+        
+        console.log('Correo electrónico válido. Enviar formulario o realizar la acción correspondiente.');
+    } else {
+        // Mostrar una notificación de error al usuario
+        showNotification('Por favor, use un correo electrónico válido (gmail, hotmail, yahoo).');
+        return
+    }
 
     // Validar que todos los campos obligatorios estén llenos
     if (!email || !password || !password_repeat || !first_name || !last_name || !phone || !userName || !educational_level_id || !agreed_terms) {
