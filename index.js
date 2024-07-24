@@ -68,8 +68,7 @@ app.get('/register', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'registro.html'));
 })
 
-
-
+ 
 // Ruta para manejar la solicitud de categorías educativas
 app.post('/listaEducativa', (req, res) => {
     connection.query('SELECT id, nombre FROM niveles_educativos', (err, result) => {
