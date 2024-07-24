@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', function () {
     const button = document.getElementById('userDropdown');
     const menu = document.getElementById('dropdown-user');
-    const Bandeja = document.getElementById('Bandeja');
+    
     button.addEventListener('click', function () {
       const isExpanded = button.getAttribute('aria-expanded') === 'true';
       button.setAttribute('aria-expanded', !isExpanded);
@@ -16,18 +16,40 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   });
 
-
-  Bandeja.addEventListener('click', function () {
-    const isExpanded = button.getAttribute('aria-expanded') === 'true';
-    button.setAttribute('aria-expanded', !isExpanded);
-    menu.classList.toggle('hidden');
+  document.addEventListener('DOMContentLoaded', function () {
+    const Bandeja = document.getElementById('Bandeja');
+    const chats = document.getElementById('chats');
+    
+    Bandeja.addEventListener('click', function () {
+      const isExpanded = Bandeja.getAttribute('aria-expanded') === 'true';
+      Bandeja.setAttribute('aria-expanded', !isExpanded);
+      chats.classList.toggle('hidden');
+    });
+  
+    document.addEventListener('click', function (event) {
+      if (!Bandeja.contains(event.target) && !chats.contains(event.target)) {
+        chats.classList.add('hidden');
+        Bandeja.setAttribute('aria-expanded', 'false');
+      }
+    });
   });
 
-  document.addEventListener('click', function (event) {
-    if (!button.contains(event.target) && !menu.contains(event.target)) {
-      menu.classList.add('hidden');
-      button.setAttribute('aria-expanded', 'false');
-    }
+  document.addEventListener('DOMContentLoaded', function () {
+    const Notificaciones = document.getElementById('Notificaciones');
+    const BandejaDeNotificaciones = document.getElementById('BandejaDeNotificaiones');
+    
+    Notificaciones.addEventListener('click', function () {
+      const isExpanded =Notificaciones.getAttribute('aria-expanded') === 'true';
+      Notificaciones.setAttribute('aria-expanded', !isExpanded);
+      BandejaDeNotificaciones.classList.toggle('hidden');
+    });
+  
+    document.addEventListener('click', function (event) {
+      if (!Notificaciones.contains(event.target) && !BandejaDeNotificaciones.contains(event.target)) {
+        BandejaDeNotificaciones.classList.add('hidden');
+        Notificaciones.setAttribute('aria-expanded', 'false');
+      }
+    });
   });
 
   document.addEventListener('DOMContentLoaded', function() {
@@ -47,6 +69,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     window.addEventListener('resize', checkWindowSize);
 });
+
 
 
   
