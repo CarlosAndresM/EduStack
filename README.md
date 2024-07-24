@@ -29,8 +29,8 @@ EduStack es una plataforma educativa interactiva diseñada para facilitar el int
 │   │   ├── img
 │   │   └── js
 │   ├── database
-│   ├── index.html
-│   └── registro.html
+│   ├── ...html
+│   └── ...html
 ├── server.js
 └── tailwind.config.js
 
