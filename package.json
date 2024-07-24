@@ -14,6 +14,7 @@
     "node-sass": "^9.0.0"
   },
   "scripts": {
+    "dev": "node --watch index.js",
     "sass": "sass public/assets/css/Styles.scss public/assets/css/index.css"
   }
 }

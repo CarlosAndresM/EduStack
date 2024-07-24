@@ -59,6 +59,15 @@ app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'login.html'));
 });
 
+app.get('/login', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'login.html'));
+})
+
+
+app.get('/register', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'registro.html'));
+})
+
 
 
 // Ruta para manejar la solicitud de categorías educativas
@@ -99,8 +108,14 @@ app.post('/registro', (req, res) => {
         }
 
         if (results.length > 0) {
-            // Correo electrónico ya registrado
-            return res.status(400).json({ message: 'Este correo electrónico ya está registrado. Por favor, inicie sesión.' });
+            if(results[0].userName === userName) {
+                return res.status(400).json({message: 'Este nombre usuario ya esta en uso. Prueba con otro.'})
+            }
+            else{
+        // Correo electrónico ya registrado
+        return res.status(400).json({ message: 'Este correo electrónico ya está registrado. Por favor, inicie sesión.' });
+            }
+           
         } else {
             // Verificar si el correo electrónico ya está registrado en la tabla de usuarios temporales
             connection.query('SELECT * FROM usuarios_temporales WHERE email = ?', [email], (err, tempResults) => {
@@ -248,7 +263,7 @@ app.post('/registro', (req, res) => {
                                     <div class="message">
         
                                     <p>Hola ${first_name} ${last_name},</p>
-                                    <p>Gracias por registrarte. Para completar tu registro, por favor ingresa el siguiente código de verificación:</p>
+                                    <p>El código de verificación ha expirado. Para completar tu registro, por favor ingresa el siguiente código de verificación:</p>
                                     <h3>${newVerificationCode}</h3>
                                     <p>Este código es válido por 5 minutos.</p>
                                     <p>Atentamente,</p>
@@ -257,7 +272,6 @@ app.post('/registro', (req, res) => {
                                 </div>
                             </body>
                             </html>
-
                                 `
                             };
 

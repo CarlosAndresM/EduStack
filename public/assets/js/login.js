@@ -1,3 +1,25 @@
+const linkRegistro = document.getElementById('linkRegistro')
+
+linkRegistro.addEventListener('click', (e) => {
+    e.preventDefault(); // Prevent the default action (i.e., following the link)
+
+    fetch('/register', {
+        method: 'GET',
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Error al obtener la página de registro');
+        }
+        // Redirect to the registration page
+        window.location.href = '/register';
+    })
+    .catch(error => {
+        console.error('Fetch error:', error);
+        // Handle errors (e.g., show an error message to the user)
+    });
+});
+
+
 //  Script para mostrar/ocultar contraseña --> {
 
 const togglePassword = document.getElementById('togglePassword');
@@ -9,17 +31,7 @@ togglePassword.addEventListener('click', function () {
     this.classList.toggle('bx-hide');
     this.classList.toggle('bx-show');
 });
-
-// Para la confirmación de contraseña
-const toggleRepeatPassword = document.getElementById('toggleRepeatPassword');
-const repeatPassword = document.getElementById('floating_repeat_password');
-
-toggleRepeatPassword.addEventListener('click', function () {
-    const type = repeatPassword.getAttribute('type') === 'password' ? 'text' : 'password';
-    repeatPassword.setAttribute('type', type);
-    this.classList.toggle('bx-hide');
-    this.classList.toggle('bx-show');
-}); 
+ 
 
 //  Script para mostrar/ocultar contraseña --> }
  

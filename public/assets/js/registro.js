@@ -65,6 +65,24 @@ function hideNotification() {
 }
 
 
+// Función para mostrar el loader suavemente
+function mostrarLoader() {
+    const loader = document.getElementById('loader');
+    loader.classList.remove('hidden');
+    setTimeout(() => {
+     }, 10); // Ajustar el tiempo de espera según sea necesario para una transición suave
+}
+
+// Función para ocultar el loader suavemente
+function ocultarLoader() {
+    const loader = document.getElementById('loader');
+     setTimeout(() => {
+        loader.classList.add('hidden');
+    }, 300); // Ajustar el tiempo de espera según sea necesario para una transición suave
+}
+
+
+
 // Registrar usuario
 document.getElementById('registroUsuariosForm').addEventListener('click', async (event) => {
     event.preventDefault(); // Prevenir el envío por defecto del formulario
@@ -103,14 +121,16 @@ document.getElementById('registroUsuariosForm').addEventListener('click', async 
     }
 
     if(password !== password_repeat){
-        showNotification('Las contraseñas no coinciden.');
-        document.getElementById('loader').classList.add('hidden');
+        showNotification('Las contraseñas no coinciden.'); 
         return;
     }
 
 
-    
-    document.getElementById('loader').classList.remove('hidden');
+    // Mostrar el loader antes de enviar la solicitud
+    mostrarLoader();
+
+ 
+
 
     try {
         const response = await fetch('/registro', {
@@ -146,8 +166,7 @@ document.getElementById('registroUsuariosForm').addEventListener('click', async 
         // Mostrar mensaje de error usando la función showNotification
         showNotification(error.message);
     }finally {
-    // Ocultar el spinner de carga al finalizar, tanto si hay éxito como si hay error
-    document.getElementById('loader').classList.add('hidden');
+        ocultarLoader();
 }
 });
 
