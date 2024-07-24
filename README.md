@@ -16,7 +16,7 @@ EduStack es una plataforma educativa interactiva diseñada para facilitar el int
 - MySQL para la base de datos de la plataforma.
 - Tailwind CSS para estilos rápidos y personalizables.
 
-### Estructura del Repositorio:
+### Estructura del proyecto:
 
 ```
 
