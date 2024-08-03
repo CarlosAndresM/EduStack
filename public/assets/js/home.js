@@ -72,4 +72,34 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
 
-  
+document.addEventListener('DOMContentLoaded', () => {
+  const signOutButton = document.getElementById('signOut');
+
+  if (signOutButton) {
+      signOutButton.addEventListener('click', () => {
+          fetch('/logout', {
+              method: 'POST',
+              headers: {
+                  'Content-Type': 'application/json',
+              },
+          })
+          .then(response => {
+              if (!response.ok) {
+                  throw new Error('Error al cerrar sesión');
+              }
+              return response.json();
+          })
+          .then(data => {
+              if (data.message === 'Cierre de sesión exitoso') {
+                  window.location.href = '/'; // Redirigir a la página de inicio o login
+              } else {
+                  alert('Error al cerrar sesión: ' + data.message);
+              }
+          })
+          .catch(error => {
+              console.error('Error durante el cierre de sesión:', error);
+              alert('Ocurrió un error al cerrar sesión. Inténtelo de nuevo.');
+          });
+      });
+  }
+});

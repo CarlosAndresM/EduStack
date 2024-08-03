@@ -20,18 +20,69 @@ linkRegistro.addEventListener('click', (e) => {
 });
 
 
-//  Script para mostrar/ocultar contraseña --> {
 
-const togglePassword = document.getElementById('togglePassword');
-const password = document.getElementById('floating_password');
+function showNotification(message) {
+    const notification = document.getElementById('notification');
+    const notificationMessage = document.getElementById('notificationMessage');
+    notificationMessage.textContent = message;
+    notification.classList.add('show');
+    setTimeout(() => {
+        hideNotification();
+    }, 6000);
+}
 
-togglePassword.addEventListener('click', function () {
-    const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
-    password.setAttribute('type', type);
-    this.classList.toggle('bx-hide');
-    this.classList.toggle('bx-show');
+function hideNotification() {
+    const notification = document.getElementById('notification');
+    notification.classList.remove('show');
+}
+
+ 
+document.addEventListener('DOMContentLoaded', () => {
+    const form = document.getElementById('loginForm');
+    const togglePassword = document.getElementById('togglePassword');
+    const passwordInput = document.getElementById('password');
+
+    // Toggle password visibility
+    togglePassword.addEventListener('click', () => {
+        const type = passwordInput.type === 'password' ? 'text' : 'password';
+        passwordInput.type = type;  
+        togglePassword.setAttribute('name', type === 'password' ? 'hide' : 'show');
+    });
+
+    form.addEventListener('submit', async (event) => {
+        event.preventDefault();
+
+        const userName = document.getElementById('username').value;
+        const password = document.getElementById('password').value;
+
+        fetch("/login", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                userName: userName,
+                password: password,
+            }),
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error("Login failed");
+            }
+            return response.json();
+        })
+        .then(data => {
+            if (data.message === 'Inicio de sesión exitoso') {
+                window.location.href = "/home";
+            } else {
+                alert("Login failed: " + data.message);
+
+            }
+        })
+        .catch(error => {
+            console.error("Error during login:", error);
+            
+            alert('Usuario o contraseña incorrecta, intente de nuevo.')
+        });
+    });
 });
- 
-
-//  Script para mostrar/ocultar contraseña --> }
- 
