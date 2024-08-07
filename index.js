@@ -9,6 +9,9 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const cookieParser = require('cookie-parser');
 const crypto = require('crypto'); // Para generar el código de verificación
+const { connect } = require('http2');
+require('dotenv').config();
+
 
 app.use(cookieParser());
 const SECRET_KEY = 'la_clave_es_yo_soy_pro_player_clave_secreta_para_jwt';
@@ -16,11 +19,11 @@ const SECRET_KEY = 'la_clave_es_yo_soy_pro_player_clave_secreta_para_jwt';
 
 // Configuración de la conexión a MySQL
 const connection = mysql.createConnection({
-    host: 'localhost',
-    user: 'root',
-    password: '',
-    database: 'EduStack'
-});
+    host: process.env.DB_HOST,
+    user: process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
+    database: process.env.DB_NAME
+  });
 
 // Configurar nodemailer (CONFIGURACION TEMPORAL YA QUE DEBE SER UN CORREO DE PROVEEDOR )
 const transporter = nodemailer.createTransport({
@@ -117,8 +120,8 @@ app.get('/register', (req, res) => {
 
  
 // Ruta para manejar la solicitud de categorías educativas
-app.post('/listaEducativa', (req, res) => {
-    connection.query('SELECT id, nombre FROM niveles_educativos', (err, result) => {
+app.post('/educational_levels', (req, res) => {
+    connection.query('SELECT id, nombre FROM educational_levels', (err, result) => {
         if (err) {
             console.error('Error al obtener las categorías escolares: ' + err.stack);
             return res.status(500).send('Error interno al obtener las categorías.');
@@ -132,24 +135,54 @@ app.post('/listaEducativa', (req, res) => {
 });
 
 
-// Cerrar sesion
+
+// Ruta para el cierre de sesión y el registro de la ultima conexion para el respectivo usuario
 app.post('/logout', (req, res) => {
-    res.cookie('auth_token', '', { httpOnly: true, expires: new Date(0) });
-    res.status(200).json({ message: 'Cierre de sesión exitoso' });
+    const token = req.cookies.auth_token;
+    if (!token) {
+        return res.status(400).json({ message: 'No se proporcionó el token de autenticación.' });
+    }
+
+    // Verificar el token y extraer el id del usuario
+    jwt.verify(token, SECRET_KEY, (err, decoded) => {
+        if (err) {
+            console.error('Token inválido:', err);
+            return res.status(403).json({ message: 'Token inválido.' });
+        }
+
+        const { id } = decoded;
+
+        // Registrar la última conexión
+        connection.query('UPDATE users SET last_login_at = NOW() WHERE id = ?', [id], (err, result) => {
+            if (err) {
+                console.error('Error al registrar la última conexión del usuario:', err.stack);
+                // Eliminar la cookie de autenticación y redireccionar al login, incluso si hay un error
+                res.cookie('auth_token', '', { httpOnly: true, expires: new Date(0) });
+                return res.status(500).json({ message: 'Error interno al registrar la última conexión.' });
+            }
+
+            console.log('Última conexión registrada correctamente.');
+
+            // Eliminar la cookie de autenticación y redireccionar al login
+            res.cookie('auth_token', '', { httpOnly: true, expires: new Date(0) });
+            res.status(200).json({ message: 'Cierre de sesión exitoso' });
+        });
+    });
 });
+
 
 
 // Iniciar sesion
 app.post('/login', (req, res) => {
-    const { userName, password } = req.body;
+    const { username, password } = req.body;
 
     console.log('Validando datos de inicio de sesión:');
     
-    if (!userName || !password) {
+    if (!username || !password) {
         return res.status(400).json({ message: 'Por favor, complete todos los campos obligatorios.' });
     }
 
-    connection.query('SELECT * FROM usuarios WHERE userName = ?', [userName], async (err, result) => {
+    connection.query('SELECT * FROM users WHERE username = ?', [username], async (err, result) => {
         console.log('Ejecutando consulta para ese usuario');
         if (err) {
             console.error('Error al consultar en la base de datos al momento de buscar el usuario: ' + err.stack);
@@ -167,7 +200,7 @@ app.post('/login', (req, res) => {
         }
 
         // Generar un token JWT
-        const token = jwt.sign({ id: user.id, email: user.email, userName: user.userName }, SECRET_KEY, { expiresIn: '1h' });
+        const token = jwt.sign({ id: user.id, email: user.email, username: user.username }, SECRET_KEY, { expiresIn: '1h' });
  
 
         // Establecer el token en una cookie
@@ -473,16 +506,17 @@ function sendVerificationEmailExpired(email, firstName, lastName, verificationCo
 
 // Ruta para el registro de usuarios
 app.post('/registro', async (req, res) => {
-    const { email, password, first_name, last_name, phone, userName, educational_level_id, agreed_terms, promotional_offers } = req.body;
+    const { email, password, first_name, last_name, phone, username, educational_level_id, agreed_terms, promotional_offers } = req.body;
+    console.log('validando informacion de cuenta: ', req.body)
 
-    if (!email || !password || !first_name || !last_name || !phone || !userName || !educational_level_id) {
+    if (!email || !password || !first_name || !last_name || !phone || !username || !educational_level_id) {
         return res.status(400).json({ message: 'Por favor, complete todos los campos obligatorios.' });
     }
 
     console.log('VALIDANDO LOS DATOS DEL REGISTRO: ', req.body);
 
     // Verificar si el correo electrónico o el nombre de usuario ya están registrados en la tabla de usuarios
-    connection.query('SELECT * FROM usuarios WHERE email = ? OR userName = ?', [email, userName], (err, results) => {
+    connection.query('SELECT * FROM users WHERE email = ? OR username = ?', [email, username], (err, results) => {
         if (err) {
             console.error('Error al consultar la base de datos:', err);
             return res.status(500).json({ message: 'Error al verificar el correo electrónico o nombre de usuario.' });
@@ -492,12 +526,12 @@ app.post('/registro', async (req, res) => {
             if (results.some(user => user.email === email)) {
                 return res.status(400).json({ message: 'Este correo electrónico ya está registrado. Por favor, inicie sesión.' });
             }
-            if (results.some(user => user.userName === userName)) {
+            if (results.some(user => user.username === username)) {
                 return res.status(400).json({ message: 'Este nombre de usuario ya está en uso. Prueba con otro.' });
             }
         } else {
             // Verificar si el correo electrónico ya está registrado en la tabla de usuarios temporales
-            connection.query('SELECT * FROM usuarios_temporales WHERE email = ?', [email], async (err, tempResults) => {
+            connection.query('SELECT * FROM users_temp WHERE email = ?', [email], async (err, tempResults) => {
                 if (err) {
                     console.error('Error al consultar la base de datos:', err);
                     return res.status(500).json({ message: 'Error al verificar el correo electrónico.' });
@@ -516,7 +550,7 @@ app.post('/registro', async (req, res) => {
                     } else {
                         // El código de verificación ha expirado, generar uno nuevo y enviar correo
                         const newVerificationCode = generateVerificationCode();
-                        const updateQuery = 'UPDATE usuarios_temporales SET verification_code = ?, created_at = CURRENT_TIMESTAMP WHERE email = ?';
+                        const updateQuery = 'UPDATE users_temp SET verification_code = ?, created_at = CURRENT_TIMESTAMP WHERE email = ?';
                         connection.query(updateQuery, [newVerificationCode, email], (err, updateResult) => {
                             if (err) {
                                 console.error('Error al actualizar el código de verificación en la base de datos:', err);
@@ -533,8 +567,8 @@ app.post('/registro', async (req, res) => {
                     // Usuario no encontrado en usuarios_temporales, crear uno nuevo
                     const verificationCode = generateVerificationCode();
                     const hashedPassword = await bcrypt.hash(password, 10);
-                    const insertQuery = 'INSERT INTO usuarios_temporales (email, password, first_name, last_name, phone, userName, educational_level_id, agreed_terms, promotional_offers, verification_code, created_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, NOW())';
-                    connection.query(insertQuery, [email, hashedPassword, first_name, last_name, phone, userName, educational_level_id, agreed_terms, promotional_offers, verificationCode], (err, insertResult) => {
+                    const insertQuery = 'INSERT INTO users_temp (email, password, first_name, last_name, phone, username, educational_level_id, agreed_terms, promotional_offers, verification_code, created_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, NOW())';
+                    connection.query(insertQuery, [email, hashedPassword, first_name, last_name, phone, username, educational_level_id, agreed_terms, promotional_offers, verificationCode], (err, insertResult) => {
                         if (err) {
                             console.error('Error al insertar usuario temporal en la base de datos:', err);
                             return res.status(500).json({ message: 'Error al registrar el usuario temporal.' });
@@ -556,7 +590,7 @@ app.post('/verificar-codigo', (req, res) => {
     const { verificationCode, verificacionEmail } = req.body;
 
     // Buscar el usuario temporal por el código de verificación y correo electrónico
-    connection.query('SELECT * FROM usuarios_temporales WHERE verification_code = ? AND email = ?', [verificationCode, verificacionEmail], (err, results) => {
+    connection.query('SELECT * FROM users_temp WHERE verification_code = ? AND email = ?', [verificationCode, verificacionEmail], (err, results) => {
         if (err) {
             console.error('Error al consultar la base de datos:', err);
             return res.status(500).json({ message: 'Error al verificar el código de verificación.' });
@@ -575,7 +609,7 @@ app.post('/verificar-codigo', (req, res) => {
         if (tiempoTranscurrido > tiempoLimite) {
             // Código de verificación expirado, generar uno nuevo y enviar correo
             const newVerificationCode = generateVerificationCode();
-            const updateQuery = 'UPDATE usuarios_temporales SET verification_code = ?, created_at = CURRENT_TIMESTAMP WHERE email = ?';
+            const updateQuery = 'UPDATE users_temp SET verification_code = ?, created_at = CURRENT_TIMESTAMP WHERE email = ?';
             connection.query(updateQuery, [newVerificationCode, usuarioTemporal.email], (err, updateResult) => {
                 if (err) {
                     console.error('Error al actualizar el código de verificación en la base de datos:', err);
@@ -590,18 +624,21 @@ app.post('/verificar-codigo', (req, res) => {
         } else {
             // El código de verificación es válido, proceder con el registro
             const insertQuery = `
-                INSERT INTO usuarios (email, password, first_name, last_name, phone, userName, educational_level_id, agreed_terms, promotional_offers, created_at)
-                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, NOW())
+
+              INSERT INTO users (
+                email, password, first_name, last_name, phone, username, educational_level_id, agreed_terms, promotional_offers, profile_picture_url, profile_url
+              ) 
+              VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, NULL, CONCAT("/", ?))
             `;
-            const { email, password, first_name, last_name, phone, userName, educational_level_id, agreed_terms, promotional_offers } = usuarioTemporal;
-            connection.query(insertQuery, [email, password, first_name, last_name, phone, userName, educational_level_id, agreed_terms, promotional_offers], (err, insertResult) => {
+            const { email, password, first_name, last_name, phone, username, educational_level_id, agreed_terms, promotional_offers } = usuarioTemporal;
+            connection.query(insertQuery, [email, password, first_name, last_name, phone, username, educational_level_id, agreed_terms, promotional_offers, username], (err, insertResult) => {
                 if (err) {
                     console.error('Error al insertar usuario en la base de datos:', err);
                     return res.status(500).json({ message: 'Error al completar el registro.' });
                 }
 
                 // Eliminar el usuario temporal de la base de datos
-                const deleteQuery = 'DELETE FROM usuarios_temporales WHERE id = ?';
+                const deleteQuery = 'DELETE FROM users_temp WHERE id = ?';
                 connection.query(deleteQuery, [usuarioTemporal.id], (err, deleteResult) => {
                     if (err) {
                         console.error('Error al eliminar el usuario temporal de la base de datos:', err);

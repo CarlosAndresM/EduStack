@@ -26,7 +26,7 @@ document.addEventListener('DOMContentLoaded', (e) => {
     const selectDeCategorias = document.getElementById('countries');
 
     selectDeCategorias.innerHTML = ''
-    fetch('/listaEducativa', {
+    fetch('/educational_levels', {
         method: 'POST'
     })
     .then(response => response.json())
@@ -95,7 +95,7 @@ document.getElementById('registroUsuariosForm').addEventListener('click', async 
     const first_name = document.getElementById('floating_first_name').value;
     const last_name = document.getElementById('floating_last_name').value;
     const phone = document.getElementById('floating_phone').value;
-    const userName = document.getElementById('floating_company').value;
+    const username = document.getElementById('floating_company').value;
     const educational_level_id = document.getElementById('countries').value;
     const agreed_terms = document.getElementById('checkbox-1').checked ? 1 : 0;
     const promotional_offers = document.getElementById('checkbox-2').checked ? 1 : 0;
@@ -115,7 +115,7 @@ document.getElementById('registroUsuariosForm').addEventListener('click', async 
     }
 
     // Validar que todos los campos obligatorios estén llenos
-    if (!email || !password || !password_repeat || !first_name || !last_name || !phone || !userName || !educational_level_id || !agreed_terms) {
+    if (!email || !password || !password_repeat || !first_name || !last_name || !phone || !username || !educational_level_id || !agreed_terms) {
         showNotification('Por favor, complete todos los campos obligatorios.');
         return;
     }
@@ -144,7 +144,7 @@ document.getElementById('registroUsuariosForm').addEventListener('click', async 
                 first_name,
                 last_name,
                 phone,
-                userName,
+                username,
                 educational_level_id,
                 agreed_terms,
                 promotional_offers

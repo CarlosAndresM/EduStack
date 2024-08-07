@@ -52,7 +52,7 @@ document.addEventListener('DOMContentLoaded', () => {
     form.addEventListener('submit', async (event) => {
         event.preventDefault();
 
-        const userName = document.getElementById('username').value;
+        const username = document.getElementById('username').value;
         const password = document.getElementById('password').value;
 
         fetch("/login", {
@@ -61,7 +61,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 "Content-Type": "application/json",
             },
             body: JSON.stringify({
-                userName: userName,
+                username: username,
                 password: password,
             }),
         })
