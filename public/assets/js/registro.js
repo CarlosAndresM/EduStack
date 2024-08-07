@@ -21,28 +21,37 @@
 
 
 // Codigo para renderizar la lista de las categorias escolares = >>{
-
-document.addEventListener('DOMContentLoaded', (e) => {
-    const selectDeCategorias = document.getElementById('countries');
-
-    selectDeCategorias.innerHTML = ''
-    fetch('/educational_levels', {
-        method: 'POST'
-    })
-    .then(response => response.json())
-    .then(data => {
-        if (data.message) {
-            console.log(data.message); // Muestra el mensaje del servidor en la consola
-        }
-
-        if (data.categories && data.categories.length > 0) {
-            data.categories.forEach(element => {
-                selectDeCategorias.innerHTML += `<option value="${element.id}">${element.nombre}</option>`;
-            });
-        }
-    })
-    .catch(error => console.error('Error al obtener las categorías educativas:', error));
-});
+    document.addEventListener('DOMContentLoaded', (e) => {
+        const selectDeCategorias = document.getElementById('countries');
+    
+        selectDeCategorias.innerHTML = '';
+        fetch('/educational_levels', {
+            method: 'POST'
+        })
+        .then(response => {
+            console.log('Respuesta del servidor:', response); // Verifica el objeto Response
+            return response.text(); // Lee la respuesta como texto
+        })
+        .then(text => {
+            console.log('Texto de respuesta:', text); // Muestra el contenido de la respuesta
+            try {
+                const data = JSON.parse(text); // Intenta analizar como JSON
+                if (data.message) {
+                    console.log(data.message); // Muestra el mensaje del servidor en la consola
+                }
+    
+                if (data.categories && data.categories.length > 0) {
+                    data.categories.forEach(element => {
+                        selectDeCategorias.innerHTML += `<option value="${element.id}">${element.nombre}</option>`;
+                    });
+                }
+            } catch (error) {
+                console.error('Error al analizar JSON:', error);
+            }
+        })
+        .catch(error => console.error('Error al obtener las categorías educativas:', error));
+    });
+    
 
 // }
 
