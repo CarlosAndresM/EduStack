@@ -19,8 +19,8 @@ EduStack es una plataforma educativa interactiva diseñada para facilitar el int
 ### Estructura del proyecto:
 
 ```
-
-├── README.md
+.
+├── index.js
 ├── package.json
 ├── package-lock.json
 ├── public
@@ -28,11 +28,14 @@ EduStack es una plataforma educativa interactiva diseñada para facilitar el int
 │   │   ├── css
 │   │   ├── img
 │   │   └── js
-│   ├── database
-│   ├── ...html
-│   └── ...html
-├── server.js
-└── tailwind.config.js
+│   └── database
+├── README.md
+├── tailwind.config.js
+├── vercel.json
+└── views
+    ├── home.ejs
+    ├── login.ejs
+    └── registro.ejs
 
 
 ```
