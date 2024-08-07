@@ -3,7 +3,6 @@ const path = require('path');
 const bodyParser = require('body-parser');
 const mysql = require('mysql');
 const app = express();
-const port = process.env.PORT || 3000;
 const nodemailer = require('nodemailer');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
@@ -12,9 +11,11 @@ const crypto = require('crypto'); // Para generar el código de verificación
 const { connect } = require('http2');
 require('dotenv').config();
 
+const port = process.env.PORT || 3000;
+
 
 app.use(cookieParser());
-const SECRET_KEY = 'la_clave_es_yo_soy_pro_player_clave_secreta_para_jwt';
+const SECRET_KEY = process.env.SECRET_KEY
 
 
 // Configuración de la conexión a MySQL

@@ -3,7 +3,7 @@ CREATE TABLE IF NOT EXISTS educational_levels (
     nombre VARCHAR(50) NOT NULL
 );
 
---TABLA DE NIVELES EDUCCATIVOS
+-- TABLA DE NIVELES EDUCCATIVOS
 INSERT INTO educational_levels (nombre) VALUES
 ('No especificado'),
 ('Primaria'),
@@ -28,7 +28,7 @@ CREATE TABLE IF NOT EXISTS users (
     last_login_at TIMESTAMP NULL, 
     profile_picture_url VARCHAR(255) NULL, 
     profile_url VARCHAR(255) NULL, 
-    FOREIGN KEY (educational_level_id) REFERENCES educational levels(id)
+    FOREIGN KEY (educational_level_id) REFERENCES educational_levels(id)
 );
 
 
