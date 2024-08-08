@@ -1,7 +1,7 @@
 const express = require('express');
 const path = require('path');
 const bodyParser = require('body-parser');
-const mysql = require('mysql');
+const mysql = require('mysql2');
 const app = express();
 const nodemailer = require('nodemailer');
 const bcrypt = require('bcryptjs');
@@ -18,13 +18,14 @@ app.use(cookieParser());
 const SECRET_KEY = process.env.SECRET_KEY
 
 
-// Configuración de la conexión a MySQL
 const connection = mysql.createConnection({
     host: process.env.DB_HOST,
     user: process.env.DB_USER,
     password: process.env.DB_PASSWORD,
-    database: process.env.DB_NAME
-  });
+    database: process.env.DB_NAME,
+    port: process.env.DB_PORT
+});
+
 
 // Configurar nodemailer (CONFIGURACION TEMPORAL YA QUE DEBE SER UN CORREO DE PROVEEDOR )
 const transporter = nodemailer.createTransport({
