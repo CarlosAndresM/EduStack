@@ -1,6 +1,8 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: [],
+  content: [
+    './views/**/*.ejs',
+  ],
   theme: {
     extend: {
       // Aquí puedes agregar o extender el tema según sea necesario

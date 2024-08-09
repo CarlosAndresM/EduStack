@@ -9,6 +9,7 @@ const jwt = require('jsonwebtoken');
 const cookieParser = require('cookie-parser');
 const crypto = require('crypto'); // Para generar el código de verificación
 const { connect } = require('http2');
+const { Console } = require('console');
 require('dotenv').config();
 
 const port = process.env.PORT || 3000;
@@ -33,8 +34,8 @@ const transporter = nodemailer.createTransport({
     port: 587,
     secure: false,
     auth: {
-        user: 'carlosandresmunoza3@gmail.com',
-        pass: 'ctxm rxwr jxiz ktcw'
+        user: process.env.EMAIL_USER,
+        pass: process.env.EMAIL_PASS
     }
 })
 
@@ -120,6 +121,34 @@ app.get('/register', (req, res) => {
 });
 
 
+// Ruta dinamica para manejar los perfiles de usuario
+app.get('/:username', authenticateToken, (req, res) => {
+    const username = req.params.username;
+  
+    console.log('Nombre de usuario recibido:', username);
+  
+    connection.query('SELECT * FROM users WHERE username = ?', [username], (err, result) => {
+      if (err) {
+        console.error('Error en la consulta SQL:', err);
+        return res.status(500).send('Error en la base de datos');
+      }
+  
+      if (result.length === 0) {
+        return res.status(404).send('El usuario no existe');
+      }
+  
+      console.log('Resultado de la consulta obtenido correctamente de ', username );
+  
+      const user  =  result[0];
+      if (req.user.username === username) { 
+        res.render('profile', { user }); // Mostrar perfil completo si es el usuario autenticado
+      } else {  
+      const userActual = req.user
+  
+        res.render('publicProfile', { user, userActual }); // Mostrar el perfil limitado si es otro usuario
+      }
+    });
+  });
  
 // Ruta para manejar la solicitud de categorías educativas
 app.post('/educational_levels', (req, res) => {
@@ -209,7 +238,8 @@ app.post('/login', (req, res) => {
         res.cookie('auth_token', token, {
             httpOnly: true,
             secure: process.env.NODE_ENV === 'production',
-            maxAge: 3600000
+            maxAge: 3600000,
+            sameSite: 'Strict'
         });
 
         return res.status(200).json({ message: 'Inicio de sesión exitoso' });
@@ -628,9 +658,9 @@ app.post('/verificar-codigo', (req, res) => {
             const insertQuery = `
 
               INSERT INTO users (
-                email, password, first_name, last_name, phone, username, educational_level_id, agreed_terms, promotional_offers, profile_picture_url, profile_url
+                email, password, first_name, last_name, phone, username, educational_level_id, agreed_terms, promotional_offers, profile_picture_url
               ) 
-              VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, NULL, CONCAT("/", ?))
+              VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, NULL)
             `;
             const { email, password, first_name, last_name, phone, username, educational_level_id, agreed_terms, promotional_offers } = usuarioTemporal;
             connection.query(insertQuery, [email, password, first_name, last_name, phone, username, educational_level_id, agreed_terms, promotional_offers, username], (err, insertResult) => {

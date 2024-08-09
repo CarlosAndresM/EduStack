@@ -1,0 +1,761 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr"
+  >
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  
+
+  <title> <%= user.username %></title>
+ 
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
+    <!-- Tailwind CSS -->
+  <link href="https://www.loopple.com/css/vendor/tailwind.min.css" rel="stylesheet"/>
+  <link href="https://www.loopple.com/css/tailwind/app.css?v=1.0.0" rel="stylesheet">
+  <link href="" id="google-font-url" rel="stylesheet">
+
+  <style>
+    .font-display{
+      font-family: inherit;
+    }
+    .font-body{
+      font-family: inherit;
+    } 
+    .checkbox:checked ~ .content {
+      display: block;
+    }
+    .content {
+      display: none;
+    }
+  </style>
+
+  
+  <link href="https://www.loopple.com/css/vendor/choices-navbar.min.css" rel="stylesheet">
+
+  <!-- CSS Links -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" />
+
+<script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
+
+<link href="https://demos.creative-tim.com/soft-ui-dashboard-tailwind/assets/css/nucleo-icons.css" rel="stylesheet" />
+<link href=""https://demos.creative-tim.com/soft-ui-dashboard-tailwind/assets/css/nucleo-svg.css" rel="stylesheet" />
+
+<script src="https://unpkg.com/@popperjs/core@2"></script>
+
+
+  <!-- Main CSS Link -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Loopple/loopple-public-assets@main/soft-ui-dashboard-tailwind/css/soft-ui-dashboard-tailwind.css" rel="stylesheet">
+
+  
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-193273088-1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-193273088-1');
+  </script>
+  <!-- Google Tag Manager -->
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-THGX6KG');</script>
+  <!-- End Google Tag Manager -->
+
+  </head>
+  <body class="  font-body "  style=" " data-framework="tailwind">
+
+    
+    <nav class="fixed top-0 z-50  bg-white border-b border-gray-200  dark:bg-gray-800 dark:border-gray-700">
+        <div class="px-3 py-3 lg:px-5 lg:pl-3">
+          <div class="flex items-center justify-between">
+            <div class="flex items-center justify-start rtl:justify-end">
+              <a href="https://flowbite.com" class="flex ms-2 md:me-24">
+                <box-icon class="m-2"  name='book-reader'></box-icon>
+                <span id="span" class="self-center text-xl  font-semibold  whitespace-nowrap dark:text-white  ">EDUSTACK</span>
+              </a>
+            </div>
+      </nav>
+      <div id="logo-sidebar" class="fixed top-0 left-0 z-40 lg:w-64 sm:w-20 h-screen pt-20 transition-transform -translate-x- bg-white border-r border-gray-200 sm:translate-x-0 dark:bg-gray-800 dark:border-gray-700" aria-label="Sidebar">
+         <div class="h-full px-3 pb-4 overflow-y-auto bg-white dark:bg-gray-800">
+            <ul class="space-y-2 font-medium">
+               <li>
+                  <a href="#" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+                    <box-icon class="m-2" name='dashboard' type='solid' ></box-icon>
+                     <span id="span" class="ms-3 "> Inicio </span>
+                  </a>
+               </li>
+               <li>
+                  <a href="#" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+                    <box-icon class="m-2 " name='compass'></box-icon>
+                     <span id="span" class="flex-1 ms-3  whitespace-nowrap ">Explorar</span>
+                  </a>
+               </li>
+               <li>
+                  <a id="Bandeja" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+                    <box-icon class="m-2 " name='conversation' ></box-icon>
+                     <span id="span" class="flex-1 ms-3 whitespace-nowrap ">Bandeja</span>
+                     <span id="span" class=" sm:hidden inline-flex  items-center justify-center w-3 h-3 p-3 ms-3 text-sm font-medium text-blue-800 bg-blue-100 rounded-full dark:bg-blue-900 dark:text-blue-300">0</span>
+                  </a>
+                  <div  class="absolute w-full max-w-sm overflow-y-scroll bg-white border-b-2 rounded-lg h-96 h-screen w-96 border-l-2 ml-60 top-0 hidden"id="chats"><h1 class="text-2xl text-center border-2">CHATS</h1>
+                     <ul class="h-48 py-2  text-gray-700 dark:text-gray-200 " aria-labelledby="dropdownUsersButton">
+                        <li>
+                          <a href="#" class="flex items-center px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
+                            <img class="w-6 h-6 me-2 rounded-full" src="/docs/images/people/profile-picture-1.jpg" alt="Jese image">
+                            Jese Leos
+                          </a>
+                        </li>
+                        <li>
+                          <a href="#" class="flex items-center px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
+                            <img class="w-6 h-6 me-2 rounded-full" src="" alt="Jese image">
+                            Robert Gough
+                          </a>
+                        </li>
+                        <li>
+                          <a href="#" class="flex items-center px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
+                            <img class="w-6 h-6 me-2 rounded-full" src="" alt="Jese image">
+                            Bonnie Green
+                          </a>
+                        </li>
+                        <li>
+                          <a href="#" class="flex items-center px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
+                            <img class="w-6 h-6 me-2 rounded-full" src="" alt="Jese image">
+                            Leslie Livingston
+                          </a>
+                        </li>
+                        <li>
+                          <a href="#" class="flex items-center px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
+                            <img class="w-6 h-6 me-2 rounded-full" src="" alt="Jese image">
+                            Michael Gough
+                          </a>
+                        </li>
+                        <li>
+                          <a href="#" class="flex items-center px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
+                            <img class="w-6 h-6 me-2 rounded-full" src="" alt="Jese image">
+                            Joseph Mcfall
+                          </a>
+                        </li>
+                              <li>
+                          <a href="#" class="flex items-center px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
+                            <img class="w-6 h-6 me-2 rounded-full" src="" alt="Jese image">
+                            Roberta Casas
+                          </a>
+                        </li>
+                        <li>
+                          <a href="#" class="flex items-center px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
+                            <img class="w-6 h-6 me-2 rounded-full" src="" alt="Jese image">
+                            Neil Sims
+                          </a>
+                        </li>
+                      </ul>
+                  </div>
+               </li>
+               
+        
+               <li>
+                  <a href="#" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+                    <box-icon class="m-2" type='solid' name='videos'></box-icon>
+                     <span id="span" class="   flex-1 ms-3 whitespace-nowrap ">Snapclass</span>
+                  </a>
+               </li>
+               <li>
+                  <a id="Notificaciones" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+                    <box-icon class="m-2" name='notification'></box-icon>
+                     <span id="span" class=" flex-1  ms-3 whitespace-nowrap ">Notificaciones</span>
+                  </a>
+                  
+
+<div class="absolute w-full max-w-sm overflow-y-scroll bg-white border border-gray-100 rounded-lg dark:bg-gray-700 dark:border-gray-600 h-96 h-screen w-96 border-l-2 ml-60 top-0 hidden" id="BandejaDeNotificaiones">
+   <div class="sticky bottom-0 left-0 z-50 w-full h-16 bg-white border-t border-gray-200 dark:bg-gray-700 dark:border-gray-600 border-b-2">
+      <div class="grid h-full max-w-lg grid-cols-2 mx-auto">
+          <button type="button" class="inline-flex flex-col items-center justify-center font-medium px-5 hover:bg-gray-50 dark:hover:bg-gray-800 group">
+              <svg class="w-5 h-5 mb-1 text-gray-500 dark:text-gray-400 group-hover:text-blue-600 dark:group-hover:text-blue-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                  <path d="M10 0a10 10 0 1 0 10 10A10.011 10.011 0 0 0 10 0Zm3.982 13.982a1 1 0 0 1-1.414 0l-3.274-3.274A1.012 1.012 0 0 1 9 10V6a1 1 0 0 1 2 0v3.586l2.982 2.982a1 1 0 0 1 0 1.414Z"/>
+              </svg>
+              <span class="text-sm text-gray-500 dark:text-gray-400 group-hover:text-blue-600 dark:group-hover:text-blue-500">Latest</span>
+          </button>
+         
+          <button type="button" class="inline-flex flex-col items-center justify-center font-medium px-5 hover:bg-gray-50 dark:hover:bg-gray-800 group">
+              <svg class="w-6 h-6 mb-1 text-gray-500 dark:text-gray-400 group-hover:text-blue-600 dark:group-hover:text-blue-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 22 20">
+                  <path d="M20.924 7.625a1.523 1.523 0 0 0-1.238-1.044l-5.051-.734-2.259-4.577a1.534 1.534 0 0 0-2.752 0L7.365 5.847l-5.051.734A1.535 1.535 0 0 0 1.463 9.2l3.656 3.563-.863 5.031a1.532 1.532 0 0 0 2.226 1.616L11 17.033l4.518 2.375a1.534 1.534 0 0 0 2.226-1.617l-.863-5.03L20.537 9.2a1.523 1.523 0 0 0 .387-1.575Z"/>
+              </svg>
+              <span class="text-sm text-gray-500 dark:text-gray-400 group-hover:text-blue-600 dark:group-hover:text-blue-500">Favorites</span>
+          </button>
+      </div>
+  </div>
+   <ul>
+       <li class="border-b border:gray-100 dark:border-gray-600">
+           <a href="#" class="flex items-center justify-center w-full px-4 py-3 hover:bg-gray-50 dark:hover:bg-gray-800">
+               <img class="me-3 rounded-full w-11 h-11" src="/docs/images/people/profile-picture-1.jpg" alt="Jese Leos Avatar">
+               <div>
+                   <p class="text-sm text-gray-500 dark:text-gray-400">New message from <span class="font-medium text-gray-900 dark:text-white">Jese Leos</span>: "Hey, what's up? All set for the presentation?"</p>
+                   <span class="text-xs text-blue-600 dark:text-blue-500">a few moments ago</span>
+               </div>
+           </a>
+       </li>
+       <li class="border-b border:gray-100 dark:border-gray-600">
+           <a href="#" class="flex items-center justify-center w-full px-4 py-3 hover:bg-gray-50 dark:hover:bg-gray-800">
+               <img class="me-3 rounded-full w-11 h-11" src="/docs/images/people/profile-picture-2.jpg" alt="Joseph McFall Avatar">
+               <div>
+                   <p class="text-sm text-gray-500 dark:text-gray-400"><span class="font-medium text-gray-900 dark:text-white">Joseph McFall</span> and <span class="font-medium text-gray-900 dark:text-white">5 others</span> started following you.</p>
+                   <span class="text-xs text-blue-600 dark:text-blue-500">10 minutes ago</span>
+               </div>
+           </a>
+       </li>
+       <li class="border-b border:gray-100 dark:border-gray-600">
+           <a href="#" class="flex items-center justify-center w-full px-4 py-3 hover:bg-gray-50 dark:hover:bg-gray-800">
+               <img class="me-3 rounded-full w-11 h-11" src="/docs/images/people/profile-picture-3.jpg" alt="Bonnie Green Avatar">
+               <div>
+                   <p class="text-sm text-gray-500 dark:text-gray-400"><span class="font-medium text-gray-900 dark:text-white">Bonnie Green</span> and <span class="font-medium text-gray-900 dark:text-white">141 others</span> love your story. See it and view more stories.</p>
+                   <span class="text-xs text-blue-600 dark:text-blue-500">23 minutes ago</span>
+               </div>
+           </a>
+       </li>
+       <li class="border-b border:gray-100 dark:border-gray-600">
+           <a href="#" class="flex items-center justify-center w-full px-4 py-3 hover:bg-gray-50 dark:hover:bg-gray-800">
+               <img class="me-3 rounded-full w-11 h-11" src="/docs/images/people/profile-picture-4.jpg" alt="Leslie Livingston Avatar">
+               <div>
+                   <p class="text-sm text-gray-500 dark:text-gray-400"><span class="font-medium text-gray-900 dark:text-white">Leslie Livingston</span> mentioned you in a comment: <span class="font-medium text-blue-600 dark:text-blue-500 hover:underline">@bonnie.green</span> what do you say?</p>
+                   <span class="text-xs text-blue-600 dark:text-blue-500">23 minutes ago</span>
+               </div>
+           </a>
+       </li>
+       <li>
+           <a href="#" class="flex items-center justify-center w-full px-4 py-3 hover:bg-gray-50 dark:hover:bg-gray-800">
+               <img class="me-3 rounded-full w-11 h-11" src="/docs/images/people/profile-picture-5.jpg" alt="Robert Brown Avatar">
+               <div>
+                   <p class="text-sm text-gray-500 dark:text-gray-400"><span class="font-medium text-gray-900 dark:text-white">Robert Brown</span> posted a new video: Glassmorphism - learn how to implement the new design trend. </p>
+                   <span class="text-xs text-blue-600 dark:text-blue-500">23 minutes ago</span>
+               </div>
+           </a>
+       </li>
+   </ul>
+</div>
+
+               </li>
+               <li>
+                  <a href="#" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group">
+                    <box-icon class="m-2" name='pencil'></box-icon>
+                     <span id="span" class=" flex-1 4 ms-3 whitespace-nowrap ">Crear</span>
+                  </a>
+               </li>
+                <a id="profileUserLink" href="#" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white  hover:bg-gray-100 dark:hover:bg-gray-700 group">
+                    <img class="w-10 h-10 rounded-full border-2 border-gray-700 mr-2" src="<%= user.profile_picture || 'https://flowbite.com/docs/images/people/profile-picture-5.jpg' %>" alt="user photo"><span id="usernameprofile" class="  flex-1 ms-3 whitespace-nowrap "> <%= user.username %> </span></a></a>
+
+                    <img >
+
+               </li>
+               <li >
+                <a id="userDropdown" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white  hover:bg-gray-100 dark:hover:bg-gray-700 group">
+                <box-icon class="m-2 " name='menu'></box-icon><span id="span" class="  flex-1 ms-3 whitespace-nowrap ">Mas</span></a>
+               </li>
+               <div class="z-50 hidden shadow-2xl my-4 text-base list-none bg-white divide-y divide-gray-100 rounded border border-gray-200 dark:bg-gray-700 dark:divide-gray-600" id="dropdown-user">
+                <ul class="py-1" role="none">
+                  <li>
+                    <a href="#" class="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white" role="menuitem"><box-icon class="m-2 h-10" name='bar-chart'></box-icon><span id="span" class=" flex-1 ms-3 whitespace-nowrap ">Tu actividad</span></a>
+                  </li>
+                  <li>
+                    <a href="#" class="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white" role="menuitem"><box-icon class="m-2 h-10" type='solid' name='cog'></box-icon><span id="span" class=" flex-1 ms-3 whitespace-nowrap ">Configuración</span></a>
+                  </li>
+                  <li>
+                    <a href="#" class="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white" role="menuitem"><box-icon class="m-2 h-10" name='error' ></box-icon><span id="span" class=" flex-1 ms-3 whitespace-nowrap ">Informar error</span></a>
+                  </li>
+                  <li>
+                    <a  id="signOut" href="#" class="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white" role="menuitem"><box-icon class="m-2 h-10" name='door-open' type='solid' ></box-icon><span id="span" class=" flex-1 ms-3 whitespace-nowrap ">Sign out</span></a>
+                  </li>
+                </ul>
+              
+            </ul>
+           </div>
+          </div>
+         </div>
+        </div>
+ 
+             <div class="ease-soft-in-out xl:ml-68.5 relative h-full max-h-screen rounded-xl transition-all duration-200" id="panel">
+<nav class="relative flex flex-wrap items-center justify-between px-0 py-2 mx-6 transition-all shadow-none duration-250 ease-soft-in rounded-2xl lg:flex-nowrap lg:justify-start" id="navbarTop" navbar-scroll="true"><div class="flex items-center justify-between w-full px-4 py-1 mx-auto flex-wrap-inherit">
+  <nav>  
+  </nav>
+  <div class="flex items-center mt-2 grow sm:mt-0 sm:mr-6 md:mr-0 lg:flex lg:basis-auto">
+     
+    <ul class="flex flex-row justify-end pl-0 mb-0 list-none md-max:w-full">
+      <li class="flex items-center">
+        <a href="../pages/sign-in.html" class="block px-0 py-2 text-sm font-semibold transition-all ease-nav-brand text-slate-500">
+          <i class="fa fa-user sm:mr-1" aria-hidden="true"></i> 
+        </a>
+      </li>
+      <li class="flex items-center pl-4 xl:hidden">
+        <a href="javascript:;" class="block p-0 text-sm transition-all ease-nav-brand text-slate-500" sidenav-trigger="">
+          <div class="w-4.5 overflow-hidden">
+            <i class="ease-soft mb-0.75 relative block h-0.5 rounded-sm bg-slate-500 transition-all"></i>
+            <i class="ease-soft mb-0.75 relative block h-0.5 rounded-sm bg-slate-500 transition-all"></i>
+            <i class="ease-soft relative block h-0.5 rounded-sm bg-slate-500 transition-all"></i>
+          </div>
+        </a>
+      </li>
+      <li class="flex items-center px-4">
+        <a href="javascript:;" class="p-0 text-sm transition-all ease-nav-brand text-slate-500">
+          <i fixed-plugin-button-nav="" class="cursor-pointer fa fa-cog" aria-hidden="true"></i>
+        </a>
+      </li>
+      <li class="relative flex items-center pr-2">
+        <p class="hidden transform-dropdown-show"></p>
+        <a href="javascript:;" class="block p-0 text-sm transition-all ease-nav-brand text-slate-500" dropdown-trigger="" aria-expanded="false">
+          <i class="cursor-pointer fa fa-bell" aria-hidden="true"></i>
+        </a>
+        <ul dropdown-menu="" class="text-sm transform-dropdown before:font-awesome before:leading-default before:duration-350 before:ease-soft lg:shadow-soft-3xl duration-250 min-w-44 before:sm:right-7.5 before:text-5.5 pointer-events-none absolute right-0 top-0 z-50 origin-top list-none rounded-lg border-0 border-solid border-transparent bg-white bg-clip-padding px-2 py-4 text-left text-slate-500 opacity-0 transition-all before:absolute before:right-2 before:left-auto before:top-0 before:z-50 before:inline-block before:font-normal before:text-white before:antialiased before:transition-all before:content-['\f0d8'] sm:-mr-6 lg:absolute lg:right-0 lg:left-auto lg:mt-2 lg:block lg:cursor-pointer">
+          <li class="relative mb-2">
+            <a class="ease-soft py-1.2 clear-both block w-full whitespace-nowrap rounded-lg bg-transparent px-4 duration-300 hover:bg-gray-200 hover:text-slate-700 lg:transition-colors" href="javascript:;">
+              <div class="flex py-1">
+                <div class="my-auto">
+                  <img src="../assets/img/team-2.jpg" class="inline-flex items-center justify-center mr-4 text-sm text-white h-9 w-9 max-w-none rounded-xl">
+                </div>
+                <div class="flex flex-col justify-center">
+                  <h6 class="mb-1 text-sm font-normal leading-normal">
+                    <span class="font-semibold">New message</span> from Laur
+                  </h6>
+                  <p class="mb-0 text-xs leading-tight text-slate-400">
+                    <i class="mr-1 fa fa-clock" aria-hidden="true"></i> 13 minutes ago
+                  </p>
+                </div>
+              </div>
+            </a>
+          </li>
+          <li class="relative mb-2">
+            <a class="ease-soft py-1.2 clear-both block w-full whitespace-nowrap rounded-lg px-4 transition-colors duration-300 hover:bg-gray-200 hover:text-slate-700" href="javascript:;">
+              <div class="flex py-1">
+                <div class="my-auto">
+                  <img src="../assets/img/small-logos/logo-spotify.svg" class="inline-flex items-center justify-center mr-4 text-sm text-white bg-gradient-to-tl from-gray-900 to-slate-800 h-9 w-9 max-w-none rounded-xl">
+                </div>
+                <div class="flex flex-col justify-center">
+                  <h6 class="mb-1 text-sm font-normal leading-normal">
+                    <span class="font-semibold">New album</span> by Travis Scott
+                  </h6>
+                  <p class="mb-0 text-xs leading-tight text-slate-400">
+                    <i class="mr-1 fa fa-clock" aria-hidden="true"></i> 1 day
+                  </p>
+                </div>
+              </div>
+            </a>
+          </li>
+          <li class="relative">
+            <a class="ease-soft py-1.2 clear-both block w-full whitespace-nowrap rounded-lg px-4 transition-colors duration-300 hover:bg-gray-200 hover:text-slate-700" href="javascript:;">
+              <div class="flex py-1">
+                <div class="inline-flex items-center justify-center my-auto mr-4 text-sm text-white transition-all duration-200 ease-nav-brand bg-gradient-to-tl from-slate-600 to-slate-300 h-9 w-9 rounded-xl">
+                  <svg width="12px" height="12px" viewBox="0 0 43 36" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                    <title>credit-card</title>
+                    <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                      <g transform="translate(-2169.000000, -745.000000)" fill="#FFFFFF" fill-rule="nonzero">
+                        <g transform="translate(1716.000000, 291.000000)">
+                          <g transform="translate(453.000000, 454.000000)">
+                            <path class="color-background" d="M43,10.7482083 L43,3.58333333 C43,1.60354167 41.3964583,0 39.4166667,0 L3.58333333,0 C1.60354167,0 0,1.60354167 0,3.58333333 L0,10.7482083 L43,10.7482083 Z" opacity="0.593633743"></path>
+                            <path class="color-background" d="M0,16.125 L0,32.25 C0,34.2297917 1.60354167,35.8333333 3.58333333,35.8333333 L39.4166667,35.8333333 C41.3964583,35.8333333 43,34.2297917 43,32.25 L43,16.125 L0,16.125 Z M19.7083333,26.875 L7.16666667,26.875 L7.16666667,23.2916667 L19.7083333,23.2916667 L19.7083333,26.875 Z M35.8333333,26.875 L28.6666667,26.875 L28.6666667,23.2916667 L35.8333333,23.2916667 L35.8333333,26.875 Z"></path>
+                          </g>
+                        </g>
+                      </g>
+                    </g>
+                  </svg>
+                </div>
+                <div class="flex flex-col justify-center">
+                  <h6 class="mb-1 text-sm font-normal leading-normal">Payment successfully completed</h6>
+                  <p class="mb-0 text-xs leading-tight text-slate-400">
+                    <i class="mr-1 fa fa-clock" aria-hidden="true"></i> 2 days
+                  </p>
+                </div>
+              </div>
+            </a>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+</div></nav>
+                <div class="w-full px-6 py-6 mx-auto drop-zone loopple-min-height-78vh text-slate-500"><div class="relative flex flex-col flex-auto min-w-0 p-4 overflow-hidden break-words border-0 shadow-blur rounded-2xl bg-white/80 bg-clip-border mb-4 draggable" draggable="true">
+  <div class="flex flex-wrap -mx-3">
+    <div class="flex-none w-auto max-w-full px-3">
+      <div class="text-base ease-soft-in-out h-18.5 w-18.5 relative inline-flex items-center justify-center rounded-xl text-white transition-all duration-200">
+        <img src="<%= user.profile_picture || 'https://flowbite.com/docs/images/people/profile-picture-5.jpg' %>" alt="profile_image" class="w-full shadow-soft-sm rounded-xl">
+      </div>
+    </div>
+    <div class="flex-none w-auto max-w-full px-3 my-auto">
+      <div class="h-full">
+        <h5 class="mb-1"><%= user.first_name%> <%= user.last_name%></h5>
+        <p class="mb-0 font-semibold leading-normal text-sm"><%= user.username %></p>
+      </div>
+    </div>
+    <div class="w-full max-w-full px-3 mx-auto mt-4 sm:my-auto sm:mr-0 md:w-1/2 md:flex-none lg:w-4/12"></div>
+  </div>
+</div><div class="w-full pb-6 mx-auto removable">
+  <div class="flex flex-wrap -mx-3 drop-zone">
+    <div class="w-full max-w-full px-3 xl:w-4/12">
+  <div class="relative flex flex-col h-full min-w-0 break-words bg-white border-0 shadow-soft-xl rounded-2xl bg-clip-border">
+    
+   <div class="flex-auto p-4">
+      <h6 class="font-bold leading-tight uppercase text-xs text-slate-500">Tus Publicaciones</h6>
+      <ul class="flex flex-col pl-0 mb-0 rounded-lg">
+        <li class="relative block px-0 py-2 bg-white border-0 rounded-t-lg text-inherit">
+          <div class="min-h-6 mb-0.5 block pl-0">
+            <input id="publicaciones" class="checkbox mt-0.54 rounded-10 duration-250 ease-soft-in-out after:rounded-circle after:shadow-soft-2xl after:duration-250 checked:after:translate-x-5.25 h-5 relative float-left ml-auto w-10 cursor-pointer appearance-none border border-solid border-gray-200 bg-slate-800/10 bg-none bg-contain bg-left bg-no-repeat align-top transition-all after:absolute after:top-px after:h-4 after:w-4 after:translate-x-px after:bg-white after:content-[''] checked:border-slate-800/95 checked:bg-slate-800/95 checked:bg-none checked:bg-right" type="checkbox">
+            <label for="publicaciones" class="w-4/5 mb-0 ml-4 overflow-hidden font-normal cursor-pointer select-none text-sm text-ellipsis whitespace-nowrap text-slate-500">
+              <span>+33</span> Check para revisar
+            </label>
+          </div>
+        </li>
+      </ul>
+      <h6 class="mt-6 font-bold leading-tight uppercase text-xs text-slate-500">Tus Documentaciones / Cursos</h6>
+      <ul class="flex flex-col pl-0 mb-0 rounded-lg">
+        <li class="relative block px-0 py-2 bg-white border-0 rounded-t-lg text-inherit">
+          <div class="min-h-6 mb-0.5 block pl-0">
+            <input id="documentaciones" class="checkbox mt-0.54 rounded-10 duration-250 ease-soft-in-out after:rounded-circle after:shadow-soft-2xl after:duration-250 checked:after:translate-x-5.25 h-5 relative float-left ml-auto w-10 cursor-pointer appearance-none border border-solid border-gray-200 bg-slate-800/10 bg-none bg-contain bg-left bg-no-repeat align-top transition-all after:absolute after:top-px after:h-4 after:w-4 after:translate-x-px after:bg-white after:content-[''] checked:border-slate-800/95 checked:bg-slate-800/95 checked:bg-none checked:bg-right" type="checkbox">
+            <label for="documentaciones" class="w-4/5 mb-0 ml-4 overflow-hidden font-normal cursor-pointer select-none text-sm text-ellipsis whitespace-nowrap text-slate-500">
+              <span>+6</span> Check para revisar
+            </label>
+          </div>
+        </li>
+      </ul>
+      
+      <div id="publicaciones-content" class="content p-4 bg-gray-100">
+        <!-- Contenido de Publicaciones -->
+        <p>Aquí van tus publicaciones.</p>
+      </div>
+      <div id="documentaciones-content" class="content p-4 bg-gray-100">
+        <!-- Contenido de Documentaciones -->
+        <p>Aquí van tus documentaciones.</p>
+      </div>
+    </div>
+    
+    <script>
+      document.querySelectorAll('.checkbox').forEach(checkbox => {
+        checkbox.addEventListener('change', () => {
+          document.querySelectorAll('.checkbox').forEach(box => {
+            if (box !== checkbox) {
+              box.checked = false;
+              document.getElementById(box.id + '-content').style.display = 'none';
+            }
+          });
+          document.getElementById(checkbox.id + '-content').style.display = checkbox.checked ? 'block' : 'none';
+        });
+      });
+    </script>
+  </div>
+</div>
+    <div class="w-full max-w-full px-3 lg-max:mt-6 xl:w-4/12 mb-4 draggable" draggable="true">
+      <div class="relative flex flex-col h-full min-w-0 break-words bg-white border-0 shadow-soft-xl rounded-2xl bg-clip-border">
+        <div class="p-4 pb-0 mb-0 bg-white border-b-0 rounded-t-2xl">
+          <div class="flex flex-wrap -mx-3">
+            <div class="flex items-center w-full max-w-full px-3 shrink-0 md:w-8/12 md:flex-none">
+              <h6 class="mb-0">Profile Information</h6>
+            </div>
+            <div class="w-full max-w-full px-3 text-right shrink-0 md:w-4/12 md:flex-none">
+              <a href="javascript:;" data-target="tooltip_trigger" data-placement="top">
+                <i class="leading-normal fas fa-user-edit text-sm text-slate-400" aria-hidden="true"></i>
+              </a>
+              <div data-target="tooltip" class="px-2 py-1 text-center text-white bg-black rounded-lg text-sm hidden" role="tooltip" data-popper-placement="top" style="position: absolute; inset: auto auto 0px 0px; margin: 0px; transform: translate(993px, -117px);"> Edit Profile <div class="invisible absolute h-2 w-2 bg-inherit before:visible before:absolute before:h-2 before:w-2 before:rotate-45 before:bg-inherit before:content-['']" data-popper-arrow="" style="position: absolute; left: 0px; transform: translate(0px, 0px);"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="flex-auto p-4">
+         <p class="leading-normal text-sm">Hola, soy <%= user.first_name %> <%= user.last_name %>, aqui ira una breve descripcion sobre la mi.</p> 
+         <hr class="h-px my-6 bg-transparent bg-transparent bg-gradient-to-r from-transparent via-black/40 to-transparent">
+         <ul class="flex flex-col pl-0 mb-0 rounded-lg">
+           <li class="relative block px-4 py-2 pt-0 pl-0 leading-normal bg-white border-0 rounded-t-lg text-sm text-inherit">
+             <strong class="text-slate-700">Full Name:</strong> &nbsp; <%= user.first_name %> <%= user.last_name%>
+           </li>
+           <li class="relative block px-4 py-2 pl-0 leading-normal bg-white border-0 border-t-0 text-sm text-inherit">
+             <strong class="text-slate-700">Mobile:</strong> &nbsp; <%= user.phone %>
+           </li>
+           <li class="relative block px-4 py-2 pl-0 leading-normal bg-white border-0 border-t-0 text-sm text-inherit">
+             <strong class="text-slate-700">Email:</strong> &nbsp; <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="47262b2224332f282a37342829072a262e2b6924282a"> <%= user.email %>&#160;</a>
+           </li>
+           <li class="relative block px-4 py-2 pl-0 leading-normal bg-white border-0 border-t-0 text-sm text-inherit">
+             <strong class="text-slate-700">Location:</strong> &nbsp; Colombia
+           </li>
+           
+         </ul>
+       </div>
+      </div>
+    </div>
+    <div class="w-full max-w-full px-3 lg-max:mt-6 xl:w-4/12 mb-4 draggable" draggable="true">
+      <div class="relative flex flex-col h-full min-w-0 break-words bg-white border-0 shadow-soft-xl rounded-2xl bg-clip-border">
+        <div class="p-4 pb-0 mb-0 bg-white border-b-0 rounded-t-2xl">
+          <h6 class="mb-0">Tus Favoritos</h6>
+        </div>
+        <div class="flex-auto p-4">
+          <ul class="flex flex-col pl-0 mb-0 rounded-lg">
+            <li class="relative flex items-center px-0 py-2 mb-2 bg-white border-0 rounded-t-lg text-inherit">
+              <div class="inline-flex items-center justify-center w-12 h-12 mr-4 text-white transition-all duration-200 text-base ease-soft-in-out rounded-xl">
+                <img src="https://demos.creative-tim.com/soft-ui-dashboard-tailwind/assets/img/kal-visuals-square.jpg" alt="kal" class="w-full shadow-soft-2xl rounded-xl">
+              </div>
+              <div class="flex flex-col items-start justify-center">
+                <h6 class="mb-0 leading-normal text-sm">Sophie B.</h6>
+                <p class="mb-0 leading-tight text-xs">Hi! I need more information..</p>
+              </div>
+              <a class="inline-block py-3 pl-0 pr-4 mb-0 ml-auto font-bold text-center uppercase align-middle transition-all bg-transparent border-0 rounded-lg shadow-none cursor-pointer leading-pro text-xs ease-soft-in hover:scale-102 hover:active:scale-102 active:opacity-85 text-fuchsia-500 hover:text-fuchsia-800 hover:shadow-none active:scale-100" href="javascript:;">Reply</a>
+            </li>
+            <li class="relative flex items-center px-0 py-2 mb-2 bg-white border-0 border-t-0 text-inherit">
+              <div class="inline-flex items-center justify-center w-12 h-12 mr-4 text-white transition-all duration-200 text-base ease-soft-in-out rounded-xl">
+                <img src="https://demos.creative-tim.com/soft-ui-dashboard-tailwind/assets/img/marie.jpg" alt="kal" class="w-full shadow-soft-2xl rounded-xl">
+              </div>
+              <div class="flex flex-col items-start justify-center">
+                <h6 class="mb-0 leading-normal text-sm">Anne Marie</h6>
+                <p class="mb-0 leading-tight text-xs">Awesome work, can you..</p>
+              </div>
+              <a class="inline-block py-3 pl-0 pr-4 mb-0 ml-auto font-bold text-center uppercase align-middle transition-all bg-transparent border-0 rounded-lg shadow-none cursor-pointer leading-pro text-xs ease-soft-in hover:scale-102 hover:active:scale-102 active:opacity-85 text-fuchsia-500 hover:text-fuchsia-800 hover:shadow-none active:scale-100" href="javascript:;">Reply</a>
+            </li>
+            <li class="relative flex items-center px-0 py-2 mb-2 bg-white border-0 border-t-0 text-inherit">
+              <div class="inline-flex items-center justify-center w-12 h-12 mr-4 text-white transition-all duration-200 text-base ease-soft-in-out rounded-xl">
+                <img src="https://demos.creative-tim.com/soft-ui-dashboard-tailwind/assets/img/ivana-square.jpg" alt="kal" class="w-full shadow-soft-2xl rounded-xl">
+              </div>
+              <div class="flex flex-col items-start justify-center">
+                <h6 class="mb-0 leading-normal text-sm">Ivanna</h6>
+                <p class="mb-0 leading-tight text-xs">About files I can..</p>
+              </div>
+              <a class="inline-block py-3 pl-0 pr-4 mb-0 ml-auto font-bold text-center uppercase align-middle transition-all bg-transparent border-0 rounded-lg shadow-none cursor-pointer leading-pro text-xs ease-soft-in hover:scale-102 hover:active:scale-102 active:opacity-85 text-fuchsia-500 hover:text-fuchsia-800 hover:shadow-none active:scale-100" href="javascript:;">Reply</a>
+            </li>
+            <li class="relative flex items-center px-0 py-2 mb-2 bg-white border-0 border-t-0 text-inherit">
+              <div class="inline-flex items-center justify-center w-12 h-12 mr-4 text-white transition-all duration-200 text-base ease-soft-in-out rounded-xl">
+                <img src="https://demos.creative-tim.com/soft-ui-dashboard-tailwind/assets/img/team-4.jpg" alt="kal" class="w-full shadow-soft-2xl rounded-xl">
+              </div>
+              <div class="flex flex-col items-start justify-center">
+                <h6 class="mb-0 leading-normal text-sm">Peterson</h6>
+                <p class="mb-0 leading-tight text-xs">Have a great afternoon..</p>
+              </div>
+              <a class="inline-block py-3 pl-0 pr-4 mb-0 ml-auto font-bold text-center uppercase align-middle transition-all bg-transparent border-0 rounded-lg shadow-none cursor-pointer leading-pro text-xs ease-soft-in hover:scale-102 hover:active:scale-102 active:opacity-85 text-fuchsia-500 hover:text-fuchsia-800 hover:shadow-none active:scale-100" href="javascript:;">Reply</a>
+            </li>
+            <li class="relative flex items-center px-0 py-2 bg-white border-0 border-t-0 rounded-b-lg text-inherit">
+              <div class="inline-flex items-center justify-center w-12 h-12 mr-4 text-white transition-all duration-200 text-base ease-soft-in-out rounded-xl">
+                <img src="https://demos.creative-tim.com/soft-ui-dashboard-tailwind/assets/img/team-3.jpg" alt="kal" class="w-full shadow-soft-2xl rounded-xl">
+              </div>
+              <div class="flex flex-col items-start justify-center">
+                <h6 class="mb-0 leading-normal text-sm">Nick Daniel</h6>
+                <p class="mb-0 leading-tight text-xs">Hi! I need more information..</p>
+              </div>
+              <a class="inline-block py-3 pl-0 pr-4 mb-0 ml-auto font-bold text-center uppercase align-middle transition-all bg-transparent border-0 rounded-lg shadow-none cursor-pointer leading-pro text-xs ease-soft-in hover:scale-102 hover:active:scale-102 active:opacity-85 text-fuchsia-500 hover:text-fuchsia-800 hover:shadow-none active:scale-100" href="javascript:;">Reply</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div></div>
+                
+             </div>
+      
+    
+
+
+    
+
+    <!-- JavaScript Links -->
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="https://demos.creative-tim.com/soft-ui-dashboard-tailwind/assets/js/plugins/chartjs.min.js"></script>
+
+<script src="https://demos.creative-tim.com/soft-ui-dashboard-tailwind/assets/js/plugins/perfect-scrollbar.min.js" async></script>
+
+<script async defer src="https://buttons.github.io/buttons.js"></script>
+
+<script src="https://cdn.jsdelivr.net/gh/Loopple/loopple-public-assets@main/soft-ui-dashboard-tailwind/js/soft-ui-dashboard-tailwind.js" async></script>
+<script>
+if (document.querySelector(".chart-bars")) {
+
+	var chartsBars = document.querySelectorAll(".chart-bars");
+
+	chartsBars.forEach(function(chart) {
+		new Chart(chart, {
+			type: "bar",
+			data: {
+				labels: ["Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+				datasets: [{
+					label: "Sales",
+					tension: 0.4,
+					borderWidth: 0,
+					borderRadius: 4,
+					borderSkipped: false,
+					backgroundColor: "#fff",
+					data: [450, 200, 100, 220, 500, 100, 400, 230, 500],
+					maxBarThickness: 6,
+				}, ],
+			},
+			options: {
+				responsive: true,
+				maintainAspectRatio: false,
+				plugins: {
+					legend: {
+						display: false,
+					},
+				},
+				interaction: {
+					intersect: false,
+					mode: "index",
+				},
+				scales: {
+					y: {
+						grid: {
+							drawBorder: false,
+							display: false,
+							drawOnChartArea: false,
+							drawTicks: false,
+						},
+						ticks: {
+							suggestedMin: 0,
+							suggestedMax: 600,
+							beginAtZero: true,
+							padding: 15,
+							font: {
+								size: 14,
+								family: "Open Sans",
+								style: "normal",
+								lineHeight: 2,
+							},
+							color: "#fff",
+						},
+					},
+					x: {
+						grid: {
+							drawBorder: false,
+							display: false,
+							drawOnChartArea: false,
+							drawTicks: false,
+						},
+						ticks: {
+							display: false,
+						},
+					},
+				},
+			},
+		});
+
+	});
+
+};
+
+if (document.querySelector(".chart-line")) {
+	var chartsLine = document.querySelectorAll(".chart-line");
+
+	chartsLine.forEach(function(chart) {
+		var ctx = chart.getContext("2d");
+
+		var gradientStroke1 = ctx.createLinearGradient(0, 230, 0, 50);
+
+		gradientStroke1.addColorStop(1, "rgba(203,12,159,0.2)");
+		gradientStroke1.addColorStop(0.2, "rgba(72,72,176,0.0)");
+		gradientStroke1.addColorStop(0, "rgba(203,12,159,0)"); //purple colors
+
+		var gradientStroke2 = ctx.createLinearGradient(0, 230, 0, 50);
+
+		gradientStroke2.addColorStop(1, "rgba(20,23,39,0.2)");
+		gradientStroke2.addColorStop(0.2, "rgba(72,72,176,0.0)");
+		gradientStroke2.addColorStop(0, "rgba(20,23,39,0)"); //purple colors
+
+		new Chart(ctx, {
+			type: "line",
+			data: {
+				labels: ["Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+				datasets: [{
+						label: "Mobile apps",
+						tension: 0.4,
+						borderWidth: 0,
+						pointRadius: 0,
+						borderColor: "#cb0c9f",
+						borderWidth: 3,
+						backgroundColor: gradientStroke1,
+						fill: true,
+						data: [50, 40, 300, 220, 500, 250, 400, 230, 500],
+						maxBarThickness: 6,
+					},
+					{
+						label: "Websites",
+						tension: 0.4,
+						borderWidth: 0,
+						pointRadius: 0,
+						borderColor: "#3A416F",
+						borderWidth: 3,
+						backgroundColor: gradientStroke2,
+						fill: true,
+						data: [30, 90, 40, 140, 290, 290, 340, 230, 400],
+						maxBarThickness: 6,
+					},
+				],
+			},
+			options: {
+				responsive: true,
+				maintainAspectRatio: false,
+				plugins: {
+					legend: {
+						display: false,
+					},
+				},
+				interaction: {
+					intersect: false,
+					mode: "index",
+				},
+				scales: {
+					y: {
+						grid: {
+							drawBorder: false,
+							display: true,
+							drawOnChartArea: true,
+							drawTicks: false,
+							borderDash: [5, 5],
+						},
+						ticks: {
+							display: true,
+							padding: 10,
+							color: "#b2b9bf",
+							font: {
+								size: 11,
+								family: "Open Sans",
+								style: "normal",
+								lineHeight: 2,
+							},
+						},
+					},
+					x: {
+						grid: {
+							drawBorder: false,
+							display: false,
+							drawOnChartArea: false,
+							drawTicks: false,
+							borderDash: [5, 5],
+						},
+						ticks: {
+							display: true,
+							color: "#b2b9bf",
+							padding: 20,
+							font: {
+								size: 11,
+								family: "Open Sans",
+								style: "normal",
+								lineHeight: 2,
+							},
+						},
+					},
+				},
+			},
+		});
+
+	});
+};
+
+</script>
+
+    
+
+    <!-- Choices Plugin -->
+    <script src="https://www.loopple.com/js/vendor/choices.min.js"></script>
+
+    <!-- Project Preview -->
+    <script src="https://www.loopple.com/js/preview/project-preview.js"></script>
+    <script src="https://www.loopple.com/js/preview/app.js"></script>
+
+
+  <script defer src="https://static.cloudflareinsights.com/beacon.min.js/vcd15cbe7772f49c399c6a5babf22c1241717689176015" integrity="sha512-ZpsOmlRQV6y907TI0dKBHq9Md29nnaEIPlkf84rnaERnq6zvWvPUqr2ft8M1aS28oN72PdrCzSjY4U6VaAw1EQ==" data-cf-beacon='{"rayId":"8b04a904e828a53a","version":"2024.7.0","r":1,"token":"c615db69dd2c43e8869bf9ce773b7094","serverTiming":{"name":{"cfL4":true}}}' crossorigin="anonymous"></script>
+  <script src="assets/js/utils.js"></script>
+
+</body>
+</html>

@@ -12,6 +12,7 @@ INSERT INTO educational_levels (nombre) VALUES
 ('Estudiante Universitario'),
 ('Especialista');
 
+
 -- TABLA DE USUARIOS
 CREATE TABLE IF NOT EXISTS users (
     id INT AUTO_INCREMENT PRIMARY KEY,
@@ -26,10 +27,11 @@ CREATE TABLE IF NOT EXISTS users (
     promotional_offers TINYINT(1) NOT NULL DEFAULT 0, 
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     last_login_at TIMESTAMP NULL, 
-    profile_picture_url VARCHAR(255) NULL, 
-    profile_url VARCHAR(255) NULL, 
+    profile_picture_url VARCHAR(255) NULL DEFAULT NULL,
+    profile_url VARCHAR(255) AS (CONCAT('/', username)) STORED, 
     FOREIGN KEY (educational_level_id) REFERENCES educational_levels(id)
 );
+
 
 
 -- TABLA DE USUARIOS TEMPORALES AL MOMENTO DEL REGISTRO

@@ -3,8 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Panel principal</title>
-    <link rel="stylesheet" type="text/css" href="assets/css/index.css">
+    <title>Panel principal</title> 
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
 </head>
@@ -182,8 +181,8 @@
                      <span id="span" class=" flex-1 4 ms-3 whitespace-nowrap ">Crear</span>
                   </a>
                </li>
-                <a href="#" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white  hover:bg-gray-100 dark:hover:bg-gray-700 group">
-                    <img class="w-10 h-10 rounded-full border-2 border-gray-700 mr-2" src="<%= user.profile_picture || 'https://flowbite.com/docs/images/people/profile-picture-5.jpg' %>" alt="user photo"><span id="span" class="  flex-1 ms-3 whitespace-nowrap "> <%= user.username %> </span></a></a>
+                <a id="profileUserLink" href="#" class="flex items-center p-2 text-gray-900 rounded-lg dark:text-white  hover:bg-gray-100 dark:hover:bg-gray-700 group">
+                    <img class="w-10 h-10 rounded-full border-2 border-gray-700 mr-2" src="<%= user.profile_picture || 'https://flowbite.com/docs/images/people/profile-picture-5.jpg' %>" alt="user photo"><span id="usernameprofile" class="  flex-1 ms-3 whitespace-nowrap "> <%= user.username %> </span></a></a>
 
                     <img >
 
@@ -318,5 +317,6 @@
       
 
       <script src="assets/js/home.js"></script>
+      <script src="assets/js/utils.js"></script>
 </body>
 </html>
