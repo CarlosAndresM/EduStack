@@ -18,13 +18,15 @@ const port = process.env.PORT || 3000;
 app.use(cookieParser());
 const SECRET_KEY = process.env.SECRET_KEY
 
-
-const connection = mysql.createConnection({
+const connection = mysql.createPool({
     host: process.env.DB_HOST,
     user: process.env.DB_USER,
     password: process.env.DB_PASSWORD,
     database: process.env.DB_NAME,
-    port: process.env.DB_PORT
+    port: process.env.DB_PORT,
+    waitForConnections: true,
+    connectionLimit: 10,
+    queueLimit: 0
 });
 
 
@@ -48,12 +50,13 @@ function generateVerificationCode() {
 
 
 // Conectar a MySQL
-connection.connect((err) => {
+connection.getConnection((err, connection) => {
     if (err) {
         console.error('Error al conectar a MySQL: ' + err.stack);
         return;
     }
     console.log('Conexión establecida con MySQL');
+    connection.release(); // Liberar la conexión de vuelta al pool
 });
 
 // Middleware para parsear application/x-www-form-urlencoded
